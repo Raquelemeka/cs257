@@ -5,5 +5,5 @@ This repository contains homework for CS257 at Carleton College Spring 2025
 - Contains Characters.csv: a dataset of Harry Potter characters
 
 **individual**
-- Contains cli.py: A Command-line tool to filter characters by gender, house or both.
+- Contains cli.py: a Command-line tool to filter characters by gender, house or both.
     
