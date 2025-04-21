@@ -1,94 +1,89 @@
 #!/usr/bin/env python3
 '''
-    flask_sample.py
-    Jeff Ondich, 22 April 2016
-    Last updated 17 April 2025
+    Adapted from flask_sample.py by Jeff Ondich
+    Original structure and Flask implementation inspired by Jeff's work
+    Additional functionality and modifications by Ngozi Raquel Emeka
 
-    A slightly more complicated Flask sample app than the
-    "hello world" app found at http://flask.pocoo.org/.
-'''
+    api.py - Harry Potter Character Query API
+    DESCRIPTION: Provides API endpoints to query Harry Potter characters by house and/or gender
+    '''
 import sys
 import argparse
 import flask
 import json
+import csv
 
 app = flask.Flask(__name__)
 
-# Who needs a database when you can just hard-code some actors and movies?
-actors = [
-    {'last_name': 'Pickford', 'first_name': 'Mary', 'birth_year':1892, 'death_year':1979},
-    {'last_name': 'Rains', 'first_name': 'Claude', 'birth_year':1889, 'death_year':1967},
-    {'last_name': 'Lorre', 'first_name': 'Peter', 'birth_year':1904, 'death_year':1964},
-    {'last_name': 'Greenstreet', 'first_name': 'Sydney', 'birth_year':1879, 'death_year':1954},
-    {'last_name': 'Bergman', 'first_name': 'Ingrid', 'birth_year':1915, 'death_year':1982},
-    {'last_name': 'Grant', 'first_name': 'Cary', 'birth_year':1904, 'death_year':1986},
-    {'last_name': 'Colbert', 'first_name': 'Claudette', 'birth_year':1903, 'death_year':1996},
-    {'last_name': 'McDormand', 'first_name': 'Frances', 'birth_year':1957, 'death_year':None},
-    {'last_name': 'Thompson', 'first_name': 'Tessa', 'birth_year':1983, 'death_year':None},
-    {'last_name': 'Wiig', 'first_name': 'Kristen', 'birth_year':1973, 'death_year':None},
-    {'last_name': 'Adams', 'first_name': 'Amy', 'birth_year':1974, 'death_year':None}
-]
-
-movies = [
-    {'title': 'Casablanca', 'year': 1942, 'genre': 'drama'},
-    {'title': 'North By Northwest', 'year': 1959, 'genre': 'thriller'},
-    {'title': 'Alien', 'year': 1979, 'genre': 'scifi'},
-    {'title': 'Bridesmaids', 'year': 2011, 'genre': 'comedy'},
-    {'title': 'Arrival', 'year': 2016, 'genre': 'scifi'},
-    {'title': 'Booksmart', 'year': 2019, 'genre': 'comedy'},
-    {'title': 'It Happened One Night', 'year': 1934, 'genre': 'comedy'},
-    {'title': 'Fargo', 'year': 1996, 'genre': 'thriller'},
-    {'title': 'Sorry to Bother You', 'year': 2018, 'genre': 'comedy'},
-    {'title': 'Passing', 'year': 2021, 'genre': 'drama'},
-    {'title': 'Clueless', 'year': 1995, 'genre': 'comedy'}
-]
-
 @app.route('/')
 def hello():
-    return 'Hello, Citizen of CS257.'
+    return 'Welcome to the Harry Potter Character Query API'
 
-@app.route('/actor/<last_name>')
-def get_actor(last_name):
-    ''' Returns the first matching actor, or an empty dictionary if there's no match. '''
-    actor_dictionary = {}
-    lower_last_name = last_name.lower()
-    for actor in actors:
-        if actor['last_name'].lower().startswith(lower_last_name):
-            actor_dictionary = actor
-            break
-    return json.dumps(actor_dictionary)
-
-@app.route('/movies')
-def get_movies():
-    ''' Returns the list of movies that match GET parameters:
-          start_year, int: reject any movie released earlier than this year
-          end_year, int: reject any movie released later than this year
-          genre: reject any movie whose genre does not match this genre exactly
-        If a GET parameter is absent, then any movie is treated as though
-        it meets the corresponding constraint. (That is, accept a movie unless
-        it is explicitly rejected by a GET parameter.)
+@app.route('/characters')
+def get_characters():
+    ''' Returns a list of Harry Potter characters that match GET parameters:
+          house: filter characters by house (e.g. Gryffindor)
+          gender: filter characters by gender (e.g. Female)
+        If parameters are absent, returns all characters.
     '''
-    movie_list = []
-    genre = flask.request.args.get('genre')
-    start_year = flask.request.args.get('start_year', default=0, type=int)
-    end_year = flask.request.args.get('end_year', default=10000, type=int)
-    for movie in movies:
-        if genre is not None and genre != movie['genre']:
-            continue
-        if movie['year'] < start_year:
-            continue
-        if movie['year'] > end_year:
-            continue
-        movie_list.append(movie)
-
-    return json.dumps(movie_list)
+    house = flask.request.args.get('house')
+    gender = flask.request.args.get('gender')
+    
+    csv_path = "../data/Characters.csv"
+    characters = []
+    
+    try:
+        with open(csv_path, newline='', encoding='utf-8-sig') as f:
+            reader = csv.DictReader(f, delimiter=';', strict=True)
+            
+            for row in reader:
+                house_match = (not house) or (row['House'].lower() == house.lower().strip())
+                gender_match = (not gender) or (row['Gender'].lower() == gender.lower().strip())
+                
+                if house_match and gender_match:
+                    character_data = {'name': row['Name']}
+                    if house:
+                        character_data['house'] = row['House']
+                    if gender:
+                        character_data['gender'] = row['Gender']
+                    if not house and not gender:
+                        character_data.update({
+                            'house': row['House'],
+                            'gender': row['Gender']
+                        })
+                    characters.append(character_data)
+                    
+    except FileNotFoundError:
+        return json.dumps({'error': 'Data file not found'}), 404
+    
+    return json.dumps(characters)
 
 @app.route('/help')
 def get_help():
-    return flask.render_template('help.html')
+    help_text = '''
+    <h1>Harry Potter Character Query API</h1>
+    
+    <h2>Available Endpoints:</h2>
+    
+    <h3>/characters</h3>
+    <p>Returns a list of Harry Potter characters filtered by house and/or gender.</p>
+    <p>Parameters:</p>
+    <ul>
+        <li><strong>house</strong>: Filter by house (e.g. Gryffindor, Slytherin)</li>
+        <li><strong>gender</strong>: Filter by gender (e.g. Female, Male)</li>
+    </ul>
+    
+    <h4>Examples:</h4>
+    <ul>
+        <li><a href="/characters?house=Hufflepuff">/characters?house=Hufflepuff</a> - All Hufflepuff characters</li>
+        <li><a href="/characters?gender=Female">/characters?gender=Female</a> - All female characters</li>
+        <li><a href="/characters?house=Slytherin&gender=Male">/characters?house=Slytherin&gender=Male</a> - All male Slytherin characters</li>
+    </ul>
+    '''
+    return help_text
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser('A sample Flask application/API')
+    parser = argparse.ArgumentParser('Harry Potter Character Query API')
     parser.add_argument('host', help='the host on which this application is running')
     parser.add_argument('port', type=int, help='the port on which this application is listening')
     arguments = parser.parse_args()
