@@ -21,9 +21,10 @@ def hello():
 
 @app.route('/characters')
 def get_characters():
-    ''' Returns a list of Harry Potter characters that match GET parameters:
-          house: filter characters by house (e.g. Gryffindor)
-          gender: filter characters by gender (e.g. Female)
+    ''' 
+    Returns a list of Harry Potter characters that match GET parameters:
+        house: filter characters by house (e.g. Gryffindor)
+        gender: filter characters by gender (e.g. Female)
         If parameters are absent, returns all characters.
     '''
     house = flask.request.args.get('house')
@@ -31,32 +32,35 @@ def get_characters():
     
     csv_path = "../data/Characters.csv"
     characters = []
+    filter_description = "All Characters"  # Default if no filters
     
     try:
         with open(csv_path, newline='', encoding='utf-8-sig') as f:
             reader = csv.DictReader(f, delimiter=';', strict=True)
+            
+            # filter description
+            if house and gender:
+                filter_description = f"All {gender} Characters in {house}"
+            elif house:
+                filter_description = f"All Characters in {house}"
+            elif gender:
+                filter_description = f"All {gender} Characters"
             
             for row in reader:
                 house_match = (not house) or (row['House'].lower() == house.lower().strip())
                 gender_match = (not gender) or (row['Gender'].lower() == gender.lower().strip())
                 
                 if house_match and gender_match:
-                    character_data = {'name': row['Name']}
-                    if house:
-                        character_data['house'] = row['House']
-                    if gender:
-                        character_data['gender'] = row['Gender']
-                    if not house and not gender:
-                        character_data.update({
-                            'house': row['House'],
-                            'gender': row['Gender']
-                        })
-                    characters.append(character_data)
+                    characters.append(row['Name'])  # Only include names
                     
     except FileNotFoundError:
         return json.dumps({'error': 'Data file not found'}), 404
     
-    return json.dumps(characters)
+    
+    return json.dumps({
+        'filter': filter_description,
+        'characters': characters
+    }) 
 
 @app.route('/help')
 def get_help():
@@ -65,6 +69,8 @@ def get_help():
     
     <h2>Available Endpoints:</h2>
     
+    <h3>/help</h3>
+    <p>Brings you to this page. Shows documentation on how to use the API.</p>
     <h3>/characters</h3>
     <p>Returns a list of Harry Potter characters filtered by house and/or gender.</p>
     <p>Parameters:</p>
