@@ -1,0 +1,78 @@
+api-design.txt
+CS 257 Software Design
+Essy, Raquel, Rui, 23 April 2025
+
+REQUEST: /characters
+
+GET parameters
+   house (Optional, default: '') -- return only characters from
+   the specified house, case-insensitively
+
+   number (Optional, default: 150) -- return only the amount of
+   characters from the list of characters
+    
+   gender (Optional, default: '') -- return only characters of 
+   that gender
+
+   name (Optional, default: '') -- return only characters whose name
+    matches the specified string
+
+RESPONSE: a JSON list of strings, each of which represents one
+character name, sorted alphabetically by first name.
+
+EXAMPLE:
+    /characters?house=gryffindor&gender=male&name=potter
+
+       "Harry James Potter", "James Potter", "James Sirius Potter"
+
+REQUEST: /characters
+
+GET parameters
+   house (Optional, default: '') -- return only characters from
+   the specified house, case-insensitively
+
+   number (Optional, default: 150) -- return only the amount of
+   characters from the list of characters
+    
+   gender (Optional, default: '') -- return only characters of 
+   that gender
+
+   name (Optional, default: '') -- return only characters whose name
+    matches the specified string
+
+RESPONSE: a JSON list of strings, each of which represents one
+character name, sorted alphabetically by first name.
+
+EXAMPLE:
+    /characters?house=gryffindor&gender=male&name=potter
+
+       "Harry James Potter", "James Potter", "James Sirius Potter"
+
+REQUEST: /spells
+
+GET parameters
+   name (Optional, default: '') -- returns spells associated with input string
+   (input string can either be common name or proper incantation name)
+
+   type (Optional, default: '') -- return spells of the specified type
+
+RESPONSE: a JSON list of dictionaries, each of which represents one
+spell, sorted alphabetically by incantation. Each dictionary in this
+list will have the following fields.
+
+    name -- (TEXT) commonly known name of spell
+    incantation -- (TEXT) actual words said to produce spell
+    type -- (TEXT) type of spell (e.g., hex, jinx, charm, etc.)
+    effect -- (TEXT) effect of spell 
+
+EXAMPLES:
+    /spells?name=accio
+
+       [{"name":"summoning charm","incantation":"accio", "type":"charm","effect":"Summons an object"}]
+    
+    /spells?type=hex
+
+       [{"name":"hex that grows antlers on the head","incantation":"anteoculatia", "type":"hex","effect":"grows antlers on head"},
+       {"name":"Stickfast Hex","incantation":"Colloshoo", "type":"hex","effect":"sticks shoes to floor"},
+       ... {the rest of the hex dictionaries!}]
+
