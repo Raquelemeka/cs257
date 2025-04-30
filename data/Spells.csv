@@ -1,0 +1,302 @@
+id,name,incantation_id,type_id,effect_id,light
+1,Summoning Charm,1,1,1,None
+2,Age Line,2,1,2,Blue
+3,Water-Making Spell,3,2,3,Icy blue
+4,Launch an object up into the air,4,1,4,Red
+5,Albus Dumbledore's Forceful Spell,2,3,5,None
+6,Unlocking Charm,5,1,6,"Invisible, blue, yellow, or purple"
+7,Healing Spell,6,4,7,
+8,Hex that grows antlers on the head,7,5,8,Red
+9,Anti-Cheating Spell,2,1,9,Purple
+10,Anti-Disapparition Jinx,2,6,10,
+11,Anti-intruder jinx,2,6,11,
+12,Antonin Dolohov's curse,2,7,12,Purple
+13,Revealing Charm,8,1,13,
+14,Tracking spell,9,1,14,Swirl of gold
+15,Apparition,10,8,15,None
+16,Aqua Eructo Charm,11,1,16,Ice Blue
+17,Spider repelling spell,12,3,17,Blue
+18,Slowing Charm,13,1,18,None
+19,Arrow-shooting spell,,9,19,
+20,Ascendio,14,1,20,None
+21,Killing Curse,15,7,21,Green
+22,Avifors Spell,16,10,22,Blue
+23,Avenseguim,17,1,23,Orange
+24,Bird-Conjuring Charm,18,11,24,Blue
+25,Babbling Curse,2,7,25,
+26,Badgering,2,10,26,
+27,Bat-Bogey Hex,2,5,27,
+28,Baubillious,19,1,28,White
+29,Bedazzling Hex,2,5,29,
+30,Bewitched Snowballs,2,1,30,
+31,Bluebell Flames,2,1,31,Bright blue
+32,Blue sparks,2,1,32,Blue
+33,Exploding Charm,20,1,33,None
+34,Exploding Charm 2,21,1,34,White
+35,Brackium Emendo,22,12,35,Blue
+36,Bravery Charm,2,1,36,
+37,Bridge-conjuring spell,2,9,37,None
+38,Broom jinx,2,6,38,
+39,Bubble-Head Charm,2,1,39,
+40,Bubble-producing spell,2,9,40,None
+41,Hair Loss Curse,23,7,41,Red or Purple
+42,Cantis,24,6,42,Pink
+43,Extension Charm,25,1,43,
+44,Seize and Pull Charm,26,1,44,Orange or Purple
+45,Cascading Jinx,2,6,45,Blue
+46,Caterwauling Charm,2,1,46,
+47,Cauldron to Sieve,,10,47,
+48,Cauldron to badger,,13,48,
+49,Cave inimicum,27,1,49,None
+50,Cheering Charm,2,1,50,
+51,Circumrota,28,1,51,
+52,Cistem Aperio,29,1,52,White
+53,Locking Spell,30,1,53,None
+54,Stickfast Hex,31,5,54,
+55,Colour Change Charm,32,1,55,Red
+56,Blasting Curse,33,7,56,Fiery Orange
+57,Confundus Charm,34,1,57,Pink
+58,Conjunctivitis Curse,2,7,58,
+59,Cornflake skin spell,2,14,59,
+60,Cracker Jinx,2,6,60,
+61,Cribbing Spell,2,3,61,
+62,Crinus Muto,35,10,62,White
+63,Cruciatus Curse,36,7,63,Red or None
+64,Gouging Spell,37,1,64,
+65,Eradication Spell,38,15,65,None
+66,Densaugeo,39,5,66,Violet
+67,Deprimo,40,1,67,Green
+68,Banishing Charm,41,1,68,White or Red
+69,Descendo,42,1,69,Blue
+70,Desk Into Pig,,10,70,
+71,Deterioration Hex,2,5,71,
+72,Severing Charm,43,1,72,"Light green, pink or red"
+73,Diminuendo,44,1,73,White
+74,Dissendium,45,1,74,None
+75,Disillusionment Charm,2,1,75,White
+76,Draconifors Spell,46,10,76,Fiery orange
+77,Drought Charm,2,1,77,
+78,Ducklifors Jinx,47,16,78,Yellow or Purple
+79,Hardening Charm,48,1,79,None
+80,Ears to kumquats,,10,80,
+81,Ear-shrivelling Curse,2,7,81,
+82,Ebublio Jinx,49,6,82,Blue
+83,Engorgement Charm,50,1,83,Icy blue
+84,Engorgio Skullus,51,5,84,Red or Purple
+85,Insect Jinx,52,17,85,Red or Purple
+86,Entrail-Expelling Curse,2,7,86,
+87,Epoximise,53,18,87,
+88,Erecto,54,1,88,None
+89,Evanesce,55,10,89,Bluish-white
+90,Vanishing Spell,56,10,90,None
+91,Everte Statum,57,1,91,Orange
+92,Patronus Charm,58,1,92,Silver
+93,Disarming Charm,59,1,93,Scarlet
+94,Expulso Curse,60,7,94,Blue
+95,Extinguishing Spell,2,1,95,
+96,False memory charm,2,1,96,
+97,Feather-light charm,2,1,97,
+98,Ferret to human,2,10,98,None
+99,Bandaging Charm,61,19,99,
+100,Fianto Duri,62,1,100,Blueish white
+101,Fidelius Charm,2,1,101,
+102,Fiendfyre,2,7,102,Fire
+103,Finestra spell,63,1,103,Blue
+104,General Counter-Spell,64,20,104,Red
+105,Finger-removing jinx,2,6,105,
+106,Firestorm,2,1,106,Crimson and gold
+107,Flagrante Curse,65,7,107,
+108,Flagrate,66,1,108,Fiery scarlet
+109,Flame-Freezing Charm,2,1,109,White
+110,Flask-conjuring spell,2,9,110,None
+111,Flintifors,67,10,111,
+112,Knockback Jinx,68,6,112,Blue
+113,Knockback Jinx Duo,68,6,112,Red
+114,Flipendo Tria,69,6,113,Blue
+115,Flying Charm,2,1,114,
+116,Smokescreen Spell,70,1,115,Grey
+117,Fumos Duo,71,1,116,Dark Red
+118,Pimple Jinx,72,6,117,Gold
+119,Fur spell,2,1,118,
+120,Doubling Charm,73,1,119,None
+121,Freezing Spell,74,1,120,Blue
+122,Glacius Duo,75,1,121,Blue
+123,Glacius Tria,76,1,122,Blue
+124,Glisseo,77,1,123,None
+125,Green Sparks,2,1,124,Green
+126,Gripping Charm,2,1,125,
+127,Hair-thickening Charm,2,1,126,
+128,Harmonia Nectere Passus,78,1,127,None
+129,Herbifors Spell,79,10,128,Red or Purple
+130,Herbivicus Charm,80,1,129,Green
+131,Dumbledore's Army parchment jinx,2,6,130,
+132,Homing spell,2,21,131,Orange or Green
+133,Human Presence Revealing Spell,81,1,132,None
+134,Homonculous Charm,2,1,133,
+135,Homorphus Charm,2,1,134,
+136,Horn tongue hex,2,5,135,
+137,Horton-Keitch Braking Charm,2,1,136,
+138,Horcrux-making spell,2,21,137,
+139,Hot-Air Charm,2,1,138,None
+140,Hour-Reversal Charm,2,1,139,Blue
+141,Hover Charm,2,1,140,Pink
+142,Hurling Hex,2,5,141,
+143,Illegibilus,82,1,142,
+144,Freezing Charm,83,1,143,Blue
+145,Impediment Jinx,84,6,144,Turquoise
+146,Imperius Curse,85,7,145,None
+147,Imperturbable Charm,2,1,146,
+148,Impervius Charm,86,1,147,None
+149,Inanimatus Conjurus Spell,2,10,148,
+150,Incarcerous Spell,87,9,149,None
+151,Fire-Making Spell,88,1,150,Orange and Red
+152,Incendio Duo Spell,88,1,150,Green
+153,Incendio Tria,89,1,151,Blue
+154,Inflating Charm,90,1,152,Blue
+155,Informous Spell,91,1,153,Blue
+156,Instant Scalping Hex,2,5,154,
+157,Intruder Charm,2,1,155,
+158,Jelly-Legs Curse,92,22,156,Orange
+159,Jelly-Brain Jinx,2,6,157,
+160,Jelly-Fingers Curse,2,7,158,
+161,Knee-reversal hex,2,5,159,
+162,Lacarnum Inflamari,93,1,160,Orange
+163,Langlock,94,6,161,None
+164,Lapifors Spell,95,10,162,Green
+165,Leek jinx,2,6,163,
+166,Legilimency Spell,96,1,164,Psychadelic transparent wave
+167,Levicorpus,97,6,165,Green
+168,Liberacorpus,98,23,166,None
+169,Locomotion Charm,99,1,167,None
+170,Leg-Locker Curse,100,7,168,Purple
+171,Wand-Lighting Charm,101,1,169,White
+172,Wand-Lighting Charm Duo,102,1,170,White
+173,Lumos Maxima,103,1,171,White
+174,Lumos Solem Spell,104,1,172,Bright yellow
+175,Magicus Extremos,105,1,173,Pink
+176,Melofors Jinx,106,24,174,Orange
+177,Meteolojinx Recanto,107,25,175,None
+178,Tongue-Tying Curse,108,7,176,Blue
+179,Ministry of Magic Fog,2,26,177,
+180,Mobiliarbus,109,1,178,Blue
+181,Mobilicorpus,110,1,179,None
+182,Cushioning Charm,111,1,180,
+183,Dark Mark,112,7,181,Green
+184,Curse of the Bogies,113,7,182,Green
+185,Muffliato Charm,114,1,183,None
+186,Multicorfors Spell,115,10,184,Red
+187,Mutatio Skullus,116,5,185,
+188,Wand-Extinguishing Charm,117,1,186,
+189,Nebulus,118,1,187,Grey
+190,Oculus Reparo,119,1,188,None
+191,Obliteration Charm,2,1,189,
+192,Memory Charm,120,1,190,Green
+193,Obscuro,121,9,191,None
+194,Oppugno Jinx,122,6,192,None
+195,Orbis Jinx,123,6,193,Blue
+196,Orchideous,124,9,194,Pink
+197,Oscausi,125,14,195,White
+198,Pack,126,1,196,None
+199,Papyrus Reparo,127,1,197,None
+200,Patented Daydream Charm,,1,198,
+201,Partis Temporus,128,1,199,None
+202,Pepper breath hex,2,5,200,
+203,Periculum,129,1,201,Red
+204,Permanent Sticking Charm,2,1,202,
+205,Peskipiksi Pesternomi,130,1,203,None
+206,Full Body-Bind Curse,131,7,204,White
+207,Piertotum Locomotor,132,1,205,None or Green
+208,Piscifors,133,10,206,Blue
+209,Placement Charm,2,1,207,
+210,Four-Point Spell,134,3,208,None
+211,Portus,135,1,209,Blue
+212,Reverse Spell,136,1,210,Gold
+213,Protean Charm,2,1,211,
+214,Shield Charm,137,1,212,"Invisible on its own, reflects light of spell"
+215,Protego Diabolica,138,21,213,
+216,Protego horribilis,139,1,214,
+217,Protego Maxima,140,1,215,White
+218,Protego totalum,141,1,216,None
+219,Purple Firecrackers,2,1,217,
+220,Pus-squirting hex,2,5,218,None (bang)
+221,Quietening Charm,142,1,219,None
+222,Head Shrink Spell,143,27,220,Red or Purple
+223,Shrinking Charm,144,1,221,Purple
+224,Reductor Curse,145,7,222,Blue
+225,Refilling Charm,2,1,223,None
+226,Reparifors,146,12,224,Purple
+227,Reverte,147,1,225,
+228,Revulsion Jinx,148,6,226,Purple
+229,Reviving Spell,149,1,227,Red
+230,Reparifarge,150,28,228,White
+231,Mending Charm,151,1,229,None
+232,Muggle-Repelling Charm,152,1,230,None (haze)
+233,Repello Inimicum,153,1,231,Blueish white
+234,Revelio Charm,154,1,232,Blue
+235,Tickling Charm,155,1,233,Silver
+236,Boggart-Banishing Spell,156,1,234,None
+237,Rose Growth,2,29,235,
+238,Rowboat spell,2,1,236,
+239,Salvio hexia,157,1,237,None (haze)
+240,Sardine hex,2,5,238,
+241,Sauce-making spell,2,9,239,None
+242,Minerva McGonagall's fire-creating spell,2,3,240,Orange
+243,Scouring Charm,158,1,241,None
+244,Sealant Charm,2,1,242,
+245,Sea urchin jinx,2,30,243,
+246,Sectumsempra,159,7,244,White
+247,Shield penetration spell,2,3,245,Bluish-white
+248,Shooting spell,2,3,246,None
+249,Smashing spell,2,7,247,Blue
+250,Snake Summons Spell,160,9,248,White
+251,Silencing Charm,161,1,249,None
+252,Skurge Charm,162,1,250,Green
+253,Slippery Jinx,2,6,251,
+254,Slug-vomiting Charm,163,7,252,Green
+255,Sonorous Charm,2,1,253,Orange
+256,Amplifying Charm,164,1,254,None
+257,Specialis Revelio,165,1,255,None
+258,Sponge-Knees Curse,2,7,256,
+259,Softening Charm,166,1,257,Purple or Orange
+260,Squiggle Quill,2,10,258,
+261,Stealth Sensoring Spell,2,3,259,
+262,Steleus,167,5,260,Green
+263,Stinging Jinx,2,31,261,White
+264,Stretching Jinx,2,6,262,
+265,Stunning Spell,168,1,263,Red
+266,Supersensory Charm,2,1,264,
+267,Surgito,169,25,265,
+268,Switching Spell,2,10,266,White
+269,Taboo,2,7,267,None
+270,Tail-growing hex,2,5,268,
+271,Dancing Feet Spell,170,6,269,
+272,Teacup to tortoise,2,10,270,Blue
+273,Teapot to tortoise,2,10,271,Orange
+274,Teeth-straightening spell,2,1,272,
+275,Teleportation spell,2,3,273,
+276,Tentaclifors,171,17,274,Purple
+277,Tergeo,172,1,275,None
+278,Tickling Hex,173,5,233,Purple
+279,Toenail-growing hex,2,5,276,
+280,Transmogrifian Torture,2,7,277,
+281,Trip Jinx,2,6,278,
+282,Twitchy-Ears Hex,2,5,279,
+283,Unbreakable Charm,2,1,280,
+284,Unbreakable Vow,2,3,281,Red
+285,Unsupported flight,2,3,282,
+286,Vacuum cleaner spell,2,1,283,None
+287,Ventus Jinx,174,6,284,Grey
+288,Ventus Duo,175,6,285,
+289,Vera Verto,176,10,286,Crystal clear
+290,Verdillious,177,1,287,Green
+291,Verdimillious Charm,178,1,288,Green
+292,Verdimillious Duo Spell,178,1,288,Green
+293,Vermiculus Jinx,179,6,289,Yellow
+294,Red Sparks,180,1,290,Red
+295,Snake-Vanishing Spell,181,32,291,Black smoke
+296,Vulnera Sanentur,182,33,292,None
+297,Waddiwasi,183,6,293,None
+298,Washing up spell,2,1,294,None
+299,Levitation Charm,184,1,295,None
+300,White sparks,2,1,28,White
+301,Episkey,185,12,296,None
