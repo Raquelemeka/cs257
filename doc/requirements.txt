@@ -1,0 +1,31 @@
+Teammates: Raquel Emeka, Rui Shen, Essy Ingram
+OUR DATA: Our datasets contain comprehensive information about characters, potions and spells featured in the Harry Potter franchise. 
+A few categories of data included for HP characters are name, gender, occupation, wand type, and even patronus.
+The potion data includes names, qualitative traits, effects and ingredients for each potion. 
+The spell data also includes helpful characteristics like incantation name, commonly used names and type (e.g., hex, jinx, charm, etc.). 
+The link provided below leads to the character dataset (Characters.csv) published by Gulsah Demiryurek on kaggle.com. 
+On the right sidebar, you may navigate to the potions or spells datasets (Potions.csv, Spells.csv).
+https://www.kaggle.com/datasets/gulsahdemiryurek/harry-potter-dataset
+
+User stories
+Story 1:
+User Story:
+As a Harry Potter fan, I want to look up a character and see their house, role, blood status, etc so that I can learn more about their background.
+Implementation Idea:
+Search bar with autocomplete for characters. Clicking a name opens a detail page displaying all available attributes.
+Story 2:
+User Story:
+As someone with an interest in magic, I want to search for spells by type (e.g., charm, curse) or effect (e.g., light-producing) so that I can learn new incantations.
+Implementation Idea:
+A filterable list of spells with dropdowns for type and effect. Each entry links to a detailed spell description page.
+Story 3:
+User Story:
+As a potion enthusiast ( really, I loved apothecary diaries), I want to browse all potions and learn about their ingredients and effects so that I can "study" potion-making.
+Implementation Idea:
+A searchable potion list with tags (e.g difficulty, magical properties). Selecting a potion reveals detailed info, including side effects.
+Story 4:
+User Story:
+As a researcher, I want to compare characters and see if their spells or potions overlap or relate so that I can explore interesting connections in the story.
+Implementation Idea:
+An optional combined view that allows users to select a character and see related spells/potions (even just side-by-side if no direct links exist).
+
