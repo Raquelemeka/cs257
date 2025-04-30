@@ -1,0 +1,74 @@
+id,name,effect,characteristics,difficulty_level
+1,Ageing Potion,Ages drinker temporarily,Green,Advanced
+2,Amortentia,Love Potion that causes a powerful infatuation or obsession in the drinker,"Mother-of-pearl sheen, Spiralling steam, Scent is multi-faceted and varies based on what the person likes",Advanced
+3,Antidote to Veritaserum,Counters the effect of Veritaserum,,
+4,Babbling Beverage,Causes the drinker to speak nonsense,,
+5,Baruffio's Brain Elixir,Allegedly increases one's brain power,Green in colour,
+6,Befuddlement Draught,Recklessness,Dark green in colour,
+7,First Love Beguiling Bubbles,Causes the drinker to become infatuated with the giver of the potion,,
+8,Fire Protection Potion,Protects drinker from fire,Purple or Black,Beginner
+9,Tolipan Blemish Blitzer,Treats acne,"White in colour, Thick paste consistency",
+10,Blood-Replenishing Potion,Replenishes lost blood,Dark red in colour,
+11,Bruise removal paste,Heals bruises in an hour,"Thick, yellow paste",
+12,Bundimun Secretion,"Doxycide, Bundimun Pomade, Cleaning products","Lime green in colour, Emits vapours",
+13,Burn-healing paste,Heals burns,Orange,
+14,Calming Draught,Calms the drinker,Blue in colour,
+15,Caxambu Style Borborygmus Potion,Provokes stomach growling,,
+16,Chelidonium Miniscula,,,
+17,Confusing Concoction,Confusion,,Simple to moderate
+18,Cough potion,Cures coughing,,
+19,Cupid Crystals,Causes the drinker to become infatuated with the giver of the potion,,
+20,Cure for Boils,Removes boils,"Blue, Emits pink smoke",Beginner
+21,Death potion,"Highly corrosive, death on contact",Black in colour,Advanced
+22,Deflating Draught,Deflates the target,,
+23,Developing solution,Develops moving photographs,,
+24,Doxycide,Temporarily stuns Doxies so that the pests can be removed from a home,"Black in colour, Typically delivered as a spray",
+25,Dr Ubbly's Oblivious Unction,Heals wounds left by thoughts,,
+26,Draught of Living Death,"Causes the drinker to fall into a deep, death-like slumber",Turns pale lilac colour then clear,Advanced
+27,Draught of Peace,Relieves anxiety,Light silver colour and vapour,Advanced
+28,Potion for Dreamless Sleep,"Drowsiness , dreamless sleep",Purple in colour,
+29,Emerald Potion,"Induces fear, delirium, intense stomach pain and extreme thirst in the drinker",,
+30,Elixir of Life,Immortality,,
+31,Elixir to Induce Euphoria,Induces happiness,"Sunshine yellow in colour, Sweet, Aromatic, Emits rainbow when finished",Advanced
+32,Everlasting Elixirs,,,
+33,Essence of Insanity,,,
+34,Fake protective potions,Supposedly protect the drinker from the effects of dark magic (likely useless),Fraudulent solutions,Beginner
+35,Felix Felicis,"Makes the drinker lucky, Giddiness and recklessness with overuse, Extremely toxic in large quantities, Highly disastrous if brewed incorrectly",Droplets leap like goldfish above potion's surface when in cauldron,Advanced
+36,Fergus Fungal Budge,"Treats ringworm, fungicide, Potential negative side effects if used by elves",,
+37,Flesh-Eating Slug Repellent,,,
+38,Forgetfulness Potion,Memory loss,Orange in colour,Beginner
+39,Garrotting Gas,"Causes choking, possibly suffocation",Colourless,
+40,Hair-Raising Potion,Raises hair up on end,Green colour,
+41,Heartbreak Teardrops,Causes the drinker to become infatuated with the giver of the potion,Red in colour,
+42,Herbicide Potion,Kills or damages plants,Green,Advanced
+43,Hiccoughing Solution,Presumably causes hiccoughs,,
+44,Invigoration Draught,Energises the drinker,Orange,O.W.L. level
+45,Kissing Concoction,Causes the drinker to become infatuated with the giver of the potion,,
+46,Laxative Potion,Laxative,,
+47,Love Potion Antidote,Serves as an antidote for Love Potion,"Clear, colourless",
+48,Madame Glossy's Silver Polish,Polishes silver objects,,
+49,Mandrake Restorative Draught,Returns transfigured or cursed individuals to their original state,,
+50,Mouth Itching Antidote,Cures mouth itching,,
+51,Mrs Skower's All-Purpose Magical Mess Remover,Cleans stains,Strong acrid odour,
+52,Murtlap Essence,Soothes and heals cuts and abrasions,Blue in colour,
+53,Pepperup Potion,"Warms up the recipient and cures common cold, Steam emits from drinker's ears",,
+54,Polyjuice Potion,Allows a human drinker to temporarily assume the form of another person,"Before addition of final ingredient: Thick and mud-like, Bubbles slowly
+After addition of final ingredient: Taste and colour vary depending on the person being turned into",Advanced
+55,Rat tonic,"Healing potion for rats, Abnormal growth of the rat if too much is drunk",Green-coloured,
+56,Regeneration potion,Helps restore non-corporeal wizards to their bodies,,Advanced
+57,Rudimentary body potion,Helps restore non-corporeal wizards to a rudimentary bodies/sustains rudimentary bodies,,Advanced
+58,Shrinking Solution,Causes living beings to shrink to a smaller form,Acid green in colour,
+59,Skele-Gro,Restores bones,"Smokes when poured, Vile taste, Burns on the way down",Above second year
+60,Sleekeazy's Hair Potion,Makes hair more manageable,,
+61,Sleeping Draught,Make the drinker quickly fall into a deep but temporary sleep,Dark Purple,Advanced
+62,Strengthening Solution,Superhuman strength,Turquoise in colour,Moderate to advanced
+63,Swelling Solution,Causes enlargement on contact,,Beginner
+64,Ten-Second Pimple Vanisher,"Treats boils, pimples, blackheads and acne",,
+65,Thick golden potion,"Healing, curse quarantining",Golden in colour,
+66,Truth serum,Drinker tells the truth,,
+67,Veritaserum,Forces drinker to speak the truth,Clear and odourless like water,Advanced
+68,Weedosoros,Highly poisonous,Deep brown in colour,
+69,Wideye Potion,"Prevents sleeping, Awakens victim",,Beginner
+70,Wit-Sharpening Potion,Improves intellect,Purple in colour,Moderate
+71,Wolfsbane Potion,Eases the symptoms of lycanthropy; prevents werewolves from losing their minds post-transformation.,"Faint blue smoke when completed, Unpleasant taste",Advanced
+72,Wound-cleaning potion,Antiseptic,"Purple liquid, Smokes on contact, Stings on contact",
