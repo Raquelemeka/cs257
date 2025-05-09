@@ -10,11 +10,12 @@ import sys
 import argparse
 import flask
 import psycopg2
-from flask import request, jsonify
+from flask import request, jsonify, Response
+import config
 
 # Import database configuration
 try:
-    from webapp.config import database, user, password, host
+    from config import database, user, password
 except ImportError:
     print("Error: Could not import database configuration from config.py")
     sys.exit(1)
@@ -24,7 +25,6 @@ app = flask.Flask(__name__)
 def get_db_connection():
     try:
         connection = psycopg2.connect(
-            host=host,
             database=database,
             user=user,
             password=password
