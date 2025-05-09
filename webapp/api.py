@@ -3,25 +3,36 @@
 Harry Potter API Implementation
 Adapted from flask_sample.py by Jeff Ondich
 
-Original structure and Flask implementation inspired by Jeff's work
-Additional functionality and modifications by Ngozi Raquel Emeka and Rui Shen
-
-api.py - Harry Potter API
-DESCRIPTION: Provides API endpoints to query Harry Potter characters and spells
+Complete database-driven version using PostgreSQL
 '''
 
 import sys
 import argparse
 import flask
-import json
-import csv
+import psycopg2
 from flask import request, jsonify
+
+# Import database configuration
+try:
+    from webapp.config import database, user, password, host
+except ImportError:
+    print("Error: Could not import database configuration from config.py")
+    sys.exit(1)
 
 app = flask.Flask(__name__)
 
-# Helper function for case-insensitive string comparison
-def case_insensitive_contains(full_string, substring):
-    return substring.lower() in full_string.lower()
+def get_db_connection():
+    try:
+        connection = psycopg2.connect(
+            host=host,
+            database=database,
+            user=user,
+            password=password
+        )
+        return connection
+    except psycopg2.Error as e:
+        print(f"Error connecting to database: {e}")
+        return None
 
 @app.route('/')
 def hello():
@@ -30,115 +41,211 @@ def hello():
 @app.route('/characters')
 def get_characters():
     '''
-    Returns a list of Harry Potter characters that match GET parameters:
-        house: filter characters by house (e.g. Gryffindor)
-        gender: filter characters by gender (e.g. Female)
-        name: filter characters by name containing string (e.g. Potter)
-        number: limit number of results (default: 150)
-    Returns: JSON list of character names sorted alphabetically
+    Returns a list of Harry Potter characters with filtering options:
+        house: filter by house name
+        blood_status: filter by blood status
+        species: filter by species
+        name: filter by name containing string
+        limit: limit number of results (default: 100)
     '''
-    # Get all parameters with defaults
     house = request.args.get('house', default='', type=str)
-    gender = request.args.get('gender', default='', type=str)
+    blood_status = request.args.get('blood_status', default='', type=str)
+    species = request.args.get('species', default='', type=str)
     name_filter = request.args.get('name', default='', type=str)
-    limit = request.args.get('number', default=150, type=int)
-    
-    csv_path = "../data/Characters.csv"
-    characters = []
-    
-    try:
-        with open(csv_path, newline='', encoding='utf-8-sig') as f:
-            reader = csv.DictReader(f, delimiter=';', strict=True)
-            
-            for row in reader:
-                # Apply all filters
-                house_match = (not house) or case_insensitive_contains(row['House'], house)
-                gender_match = (not gender) or case_insensitive_contains(row['Gender'], gender)
-                name_match = (not name_filter) or case_insensitive_contains(row['Name'], name_filter)
-                
-                if house_match and gender_match and name_match:
-                    characters.append(row['Name'])
-                    
-        # Sort alphabetically by first name
-        characters.sort(key=lambda x: x.split()[0])
-        
-        # Apply limit
-        characters = characters[:limit]
-        
-    except FileNotFoundError:
-        return jsonify({'error': 'Characters data file not found'}), 404
-    
-    return jsonify(characters)
+    limit = request.args.get('limit', default=100, type=int)
 
+    conn = get_db_connection()
+    if not conn:
+        return jsonify({'error': 'Database connection failed'}), 500
+
+    try:
+        with conn.cursor() as cursor:
+            query = """
+                SELECT c.id, c.name, h.name as house, bs.name as blood_status, 
+                       sp.name as species, c.gender, c.birth_year, c.death_year,
+                       w.wood, w.core, w.length
+                FROM characters c
+                LEFT JOIN houses h ON c.house_id = h.id
+                LEFT JOIN blood_statuses bs ON c.blood_status_id = bs.id
+                LEFT JOIN species sp ON c.species_id = sp.id
+                LEFT JOIN wands w ON c.wand_id = w.id
+                WHERE 1=1
+            """
+            params = []
+
+            if house:
+                query += " AND LOWER(h.name) LIKE LOWER(%s)"
+                params.append(f"%{house}%")
+            if blood_status:
+                query += " AND LOWER(bs.name) LIKE LOWER(%s)"
+                params.append(f"%{blood_status}%")
+            if species:
+                query += " AND LOWER(sp.name) LIKE LOWER(%s)"
+                params.append(f"%{species}%")
+            if name_filter:
+                query += " AND LOWER(c.name) LIKE LOWER(%s)"
+                params.append(f"%{name_filter}%")
+
+            query += " ORDER BY c.name LIMIT %s"
+            params.append(limit)
+
+            cursor.execute(query, params)
+            columns = [desc[0] for desc in cursor.description]
+            characters = []
+            for row in cursor.fetchall():
+                character = dict(zip(columns, row))
+                # Convert numeric values to proper types
+                if character['birth_year'] is not None:
+                    character['birth_year'] = int(character['birth_year'])
+                if character['death_year'] is not None:
+                    character['death_year'] = int(character['death_year'])
+                if character['length'] is not None:
+                    character['length'] = float(character['length'])
+                characters.append(character)
+
+        return jsonify(characters)
+
+    except psycopg2.Error as e:
+        return jsonify({'error': f'Database error: {e}'}), 500
+    finally:
+        conn.close()
 
 @app.route('/spells')
 def get_spells():
     '''
-    Returns a list of Harry Potter spells that match GET parameters:
-        name: filter by spell name or incantation containing string
-        type: filter by spell type (e.g. charm, hex)
-    Returns: JSON list of spell dictionaries sorted by incantation
+    Returns a list of spells with filtering options:
+        name: filter by spell name or incantation
+        type: filter by spell type
+        effect: filter by spell effect
+        light: filter by light color
     '''
     name_filter = request.args.get('name', default='', type=str)
-    spell_type_filter = request.args.get('type', default='', type=str)
+    spell_type = request.args.get('type', default='', type=str)
+    effect = request.args.get('effect', default='', type=str)
+    light = request.args.get('light', default='', type=str)
 
-    spells_path = "../data/Spells.csv"
-    incantations_path = "../data/incantations.csv"
-    types_path = "../data/spell_types.csv"
-    effects_path = "../data/spell_effects.csv"
-
-    spells = []
+    conn = get_db_connection()
+    if not conn:
+        return jsonify({'error': 'Database connection failed'}), 500
 
     try:
-        # Load lookup tables into dicts
-        incantations = {}
-        with open(incantations_path, newline='', encoding='utf-8-sig') as f:
-            reader = csv.DictReader(f)
-            for row in reader:
-                incantations[row['id']] = row['name']
+        with conn.cursor() as cursor:
+            query = """
+                SELECT s.id, s.name, i.name as incantation, 
+                       st.name as type, se.name as effect, 
+                       s.light, it.name as incantation_type
+                FROM spells s
+                LEFT JOIN incantations i ON s.incantation_id = i.id
+                LEFT JOIN spell_types st ON s.type_id = st.id
+                LEFT JOIN spell_effects se ON s.effect_id = se.id
+                LEFT JOIN incantation_types it ON i.type_id = it.id
+                WHERE 1=1
+            """
+            params = []
 
-        types = {}
-        with open(types_path, newline='', encoding='utf-8-sig') as f:
-            reader = csv.DictReader(f)
-            for row in reader:
-                types[row['id']] = row['name']
+            if name_filter:
+                query += " AND (LOWER(s.name) LIKE LOWER(%s) OR LOWER(i.name) LIKE LOWER(%s))"
+                params.extend([f"%{name_filter}%", f"%{name_filter}%"])
+            if spell_type:
+                query += " AND LOWER(st.name) LIKE LOWER(%s)"
+                params.append(f"%{spell_type}%")
+            if effect:
+                query += " AND LOWER(se.name) LIKE LOWER(%s)"
+                params.append(f"%{effect}%")
+            if light:
+                query += " AND LOWER(s.light) LIKE LOWER(%s)"
+                params.append(f"%{light}%")
 
-        effects = {}
-        with open(effects_path, newline='', encoding='utf-8-sig') as f:
-            reader = csv.DictReader(f)
-            for row in reader:
-                effects[row['id']] = row['name']
+            query += " ORDER BY i.name"
 
-        # Parse spells and enrich with lookup info
-        with open(spells_path, newline='', encoding='utf-8-sig') as f:
-            reader = csv.DictReader(f)
-            for row in reader:
-                incantation = incantations.get(row['incantation_id'], '')
-                spell_type = types.get(row['type_id'], '')
-                effect = effects.get(row['effect_id'], '')
+            cursor.execute(query, params)
+            columns = [desc[0] for desc in cursor.description]
+            spells = [dict(zip(columns, row)) for row in cursor.fetchall()]
 
-                name_match = (not name_filter) or (
-                    case_insensitive_contains(row['name'], name_filter) or 
-                    case_insensitive_contains(incantation, name_filter)
-                )
-                type_match = (not spell_type_filter) or case_insensitive_contains(spell_type, spell_type_filter)
+        return jsonify(spells)
 
-                if name_match and type_match:
-                    spells.append({
-                        'name': row['name'],
-                        'incantation': incantation,
-                        'type': spell_type,
-                        'effect': effect or None,
-                        'light': row['light'] or None
-                    })
+    except psycopg2.Error as e:
+        return jsonify({'error': f'Database error: {e}'}), 500
+    finally:
+        conn.close()
 
-        spells.sort(key=lambda x: x['incantation'] or '')
+@app.route('/potions')
+def get_potions():
+    '''
+    Returns a list of potions with filtering options:
+        name: filter by potion name
+        effect: filter by potion effect
+        difficulty: filter by difficulty level
+    '''
+    name_filter = request.args.get('name', default='', type=str)
+    effect = request.args.get('effect', default='', type=str)
+    difficulty = request.args.get('difficulty', default='', type=str)
 
-    except FileNotFoundError as e:
-        return jsonify({'error': f'Data file not found: {e.filename}'}), 404
+    conn = get_db_connection()
+    if not conn:
+        return jsonify({'error': 'Database connection failed'}), 500
 
-    return jsonify(spells)
+    try:
+        with conn.cursor() as cursor:
+            # Get potions
+            query = """
+                SELECT p.id, p.name, p.effect, p.difficulty, 
+                       p.characteristics, p.side_effects
+                FROM potions p
+                WHERE 1=1
+            """
+            params = []
 
+            if name_filter:
+                query += " AND LOWER(p.name) LIKE LOWER(%s)"
+                params.append(f"%{name_filter}%")
+            if effect:
+                query += " AND LOWER(p.effect) LIKE LOWER(%s)"
+                params.append(f"%{effect}%")
+            if difficulty:
+                query += " AND LOWER(p.difficulty) LIKE LOWER(%s)"
+                params.append(f"%{difficulty}%")
+
+            query += " ORDER BY p.name"
+
+            cursor.execute(query, params)
+            columns = [desc[0] for desc in cursor.description]
+            potions = [dict(zip(columns, row)) for row in cursor.fetchall()]
+
+            # Get ingredients for each potion
+            for potion in potions:
+                cursor.execute("""
+                    SELECT i.name 
+                    FROM potions_ingredients pi
+                    JOIN ingredients i ON pi.ingredient_id = i.id
+                    WHERE pi.potion_id = %s
+                """, (potion['id'],))
+                potion['ingredients'] = [row[0] for row in cursor.fetchall()]
+
+        return jsonify(potions)
+
+    except psycopg2.Error as e:
+        return jsonify({'error': f'Database error: {e}'}), 500
+    finally:
+        conn.close()
+
+@app.route('/houses')
+def get_houses():
+    '''Returns a list of all houses'''
+    conn = get_db_connection()
+    if not conn:
+        return jsonify({'error': 'Database connection failed'}), 500
+
+    try:
+        with conn.cursor() as cursor:
+            cursor.execute("SELECT id, name, founder, animal, colors FROM houses ORDER BY name")
+            columns = [desc[0] for desc in cursor.description]
+            houses = [dict(zip(columns, row)) for row in cursor.fetchall()]
+            return jsonify(houses)
+    except psycopg2.Error as e:
+        return jsonify({'error': f'Database error: {e}'}), 500
+    finally:
+        conn.close()
 
 @app.route('/help')
 def get_help():
@@ -147,40 +254,17 @@ def get_help():
     
     <h2>Available Endpoints:</h2>
     
-    <h3>/help</h3>
-    <p>Returns this documentation page.</p>
-    
     <h3>/characters</h3>
-    <p>Returns a list of Harry Potter characters.</p>
-    <p>Parameters:</p>
-    <ul>
-        <li><strong>house</strong>: Filter by house (e.g. Gryffindor)</li>
-        <li><strong>gender</strong>: Filter by gender (e.g. Female)</li>
-        <li><strong>name</strong>: Filter by name containing string (e.g. Potter)</li>
-        <li><strong>number</strong>: Limit number of results (default: 150)</li>
-    </ul>
-    <p>Returns: JSON list of character names sorted alphabetically</p>
-    
-    <h4>Examples:</h4>
-    <ul>
-        <li><a href="/characters?house=Gryffindor">/characters?house=Gryffindor</a></li>
-        <li><a href="/characters?gender=Female&name=Lily">/characters?gender=Female&name=Lily</a></li>
-    </ul>
+    <p>Returns character data with filters for house, blood status, species, and name.</p>
     
     <h3>/spells</h3>
-    <p>Returns a list of Harry Potter spells.</p>
-    <p>Parameters:</p>
-    <ul>
-        <li><strong>name</strong>: Filter by spell name or incantation</li>
-        <li><strong>type</strong>: Filter by spell type (e.g. charm, hex)</li>
-    </ul>
-    <p>Returns: JSON list of spell dictionaries sorted by incantation</p>
+    <p>Returns spell data with filters for name, type, effect, and light color.</p>
     
-    <h4>Examples:</h4>
-    <ul>
-        <li><a href="/spells?name=accio">/spells?name=accio</a></li>
-        <li><a href="/spells?type=hex">/spells?type=hex</a></li>
-    </ul>
+    <h3>/potions</h3>
+    <p>Returns potion data with filters for name, effect, and difficulty.</p>
+    
+    <h3>/houses</h3>
+    <p>Returns list of all houses.</p>
     '''
     return help_text
 
