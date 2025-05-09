@@ -70,6 +70,7 @@ def get_characters():
     
     return jsonify(characters)
 
+
 @app.route('/spells')
 def get_spells():
     '''
@@ -79,38 +80,65 @@ def get_spells():
     Returns: JSON list of spell dictionaries sorted by incantation
     '''
     name_filter = request.args.get('name', default='', type=str)
-    spell_type = request.args.get('type', default='', type=str)
-    
-    csv_path = "../data/Spells.csv"
+    spell_type_filter = request.args.get('type', default='', type=str)
+
+    spells_path = "../data/Spells.csv"
+    incantations_path = "../data/incantations.csv"
+    types_path = "../data/spell_types.csv"
+    effects_path = "../data/spell_effects.csv"
+
     spells = []
-    
+
     try:
-        with open(csv_path, newline='', encoding='utf-8-sig') as f:
-            reader = csv.DictReader(f, delimiter=';', strict=True)
-            
+        # Load lookup tables into dicts
+        incantations = {}
+        with open(incantations_path, newline='', encoding='utf-8-sig') as f:
+            reader = csv.DictReader(f)
             for row in reader:
-                # Apply all filters
+                incantations[row['id']] = row['name']
+
+        types = {}
+        with open(types_path, newline='', encoding='utf-8-sig') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                types[row['id']] = row['name']
+
+        effects = {}
+        with open(effects_path, newline='', encoding='utf-8-sig') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                effects[row['id']] = row['name']
+
+        # Parse spells and enrich with lookup info
+        with open(spells_path, newline='', encoding='utf-8-sig') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                incantation = incantations.get(row['incantation_id'], '')
+                spell_type = types.get(row['type_id'], '')
+                effect = effects.get(row['effect_id'], '')
+
                 name_match = (not name_filter) or (
-                    case_insensitive_contains(row['Name'], name_filter) or 
-                    case_insensitive_contains(row['Incantation'], name_filter)
+                    case_insensitive_contains(row['name'], name_filter) or 
+                    case_insensitive_contains(incantation, name_filter)
                 )
-                type_match = (not spell_type) or case_insensitive_contains(row['Type'], spell_type)
-                
+                type_match = (not spell_type_filter) or case_insensitive_contains(spell_type, spell_type_filter)
+
                 if name_match and type_match:
                     spells.append({
-                        'name': row['Name'],
-                        'incantation': row['Incantation'],
-                        'type': row['Type'],
-                        'effect': row['Effect']
+                        'name': row['name'],
+                        'incantation': incantation,
+                        'type': spell_type,
+                        'effect': effect or None,
+                        'light': row['light'] or None
                     })
-        
-        # Sort alphabetically by incantation
-        spells.sort(key=lambda x: x['incantation'])
-        
-    except FileNotFoundError:
-        return jsonify({'error': 'Spells data file not found'}), 404
-    
+
+        spells.sort(key=lambda x: x['incantation'] or '')
+
+    except FileNotFoundError as e:
+        return jsonify({'error': f'Data file not found: {e.filename}'}), 404
+
     return jsonify(spells)
+
 
 @app.route('/help')
 def get_help():
