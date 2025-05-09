@@ -249,7 +249,7 @@ def get_houses():
 
 @app.route('/help')
 def get_help():
-    help_text = '''
+    help_text_o = '''
     <h1>Harry Potter API Documentation</h1>
     
     <h2>Available Endpoints:</h2>
@@ -266,7 +266,46 @@ def get_help():
     <h3>/houses</h3>
     <p>Returns list of all houses.</p>
     '''
-    return help_text
+    help_text = '''\
+    All responses are in JSON
+
+    REQUEST: /
+    RESPONSE:
+    A greeting from this API to you.
+
+    REQUEST: /help
+    RESPONSE:
+    This message.
+
+    REQUEST: /characters[?house={HOUSE}&blood_status={STATUS}&species={SPECIES}&name={NAME}&limit={LIMIT}]
+    RESPONSE:
+    A list of characters matching the specified GET parameters.
+    Each character is a JSON object with keys:
+        - id, name, house, blood_status, species,
+        - gender, birth_year, death_year,
+        - wood, core, length
+
+    REQUEST: /spells[?name={NAME}&type={TYPE}&effect={EFFECT}&light={LIGHT}]
+    RESPONSE:
+    A list of spells matching the specified GET parameters.
+    Each spell is a JSON object with keys:
+        - id, name, incantation, type, effect, light, incantation_type
+
+    REQUEST: /potions[?name={NAME}&effect={EFFECT}&difficulty={LEVEL}]
+    RESPONSE:
+    A list of potions matching the specified GET parameters.
+    Each potion is a JSON object with keys:
+        - id, name, effect, difficulty, characteristics, ingredients
+
+    REQUEST: /houses
+    RESPONSE:
+    A list of all houses.
+    Each house is a JSON object with keys:
+        - id, name, founder, animal, colors
+
+    '''
+    return Response(help_text, mimetype='text/plain')
+    #return help_text
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser('Harry Potter API')
