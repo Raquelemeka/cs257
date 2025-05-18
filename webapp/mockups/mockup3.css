@@ -1,0 +1,61 @@
+/*
+   mockup3.css
+   17 May 2025
+   Rui, Raquel
+*/
+
+body {
+    margin: 50px;
+    font-family: sans-serif;
+    color: #3b3a3a;
+  }
+  
+  
+.main-content {
+    flex: 1;
+    padding-right: 20px;
+  }
+  
+
+  .main-content h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.homepage-link {  
+    text-decoration: none;
+    color: black;          
+    cursor: pointer;        
+    padding: 4px 8px;        
+    border-radius: 4px;    
+  }
+  
+.character-header h1 {
+    margin: 0;
+    font-size: 24px;
+  }
+
+  
+.detail-container {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  
+.portrait img {
+    width: 180px;
+    border-radius: 8px;
+  }
+  
+.properties {
+    margin: 0;
+  }
+.properties dt {
+    font-weight: bold;
+    margin-top: 12px;
+  }
+.properties dd {
+    margin: 4px 0 12px 0;
+  }
+  
