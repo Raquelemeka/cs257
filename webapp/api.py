@@ -14,6 +14,8 @@ import psycopg2
 from flask import request, jsonify, Response
 import config
 
+api = flask.Blueprint('api', __name__)
+
 # Import database configuration
 try:
     from config import database, user, password
@@ -21,7 +23,7 @@ except ImportError:
     print("Error: Could not import database configuration from config.py")
     sys.exit(1)
 
-app = flask.Flask(__name__)
+
 
 #get connection with database
 def get_db_connection():
@@ -37,12 +39,12 @@ def get_db_connection():
         return None
 
 #return a message to the user when they request nothing
-@app.route('/')
+@api.route('/')
 def hello():
     return 'Welcome to the Harry Potter API'
 
 
-@app.route('/characters')
+@api.route('/characters')
 def get_characters():
     '''
     Returns a list of Harry Potter characters with filtering options:
@@ -114,7 +116,7 @@ def get_characters():
     finally:
         conn.close()
 
-@app.route('/spells')
+@api.route('/spells')
 def get_spells():
     '''
     Returns a list of spells with filtering options:
@@ -176,7 +178,7 @@ def get_spells():
     finally:
         conn.close()
 
-@app.route('/potions')
+@api.route('/potions')
 def get_potions():
     '''
     Returns a list of potions with filtering options:
@@ -242,7 +244,7 @@ def get_potions():
         conn.close()
 
 #return a help message to the user
-@app.route('/help')
+@api.route('/help')
 def get_help():
     help_text = '''\
     All responses are in JSON
@@ -359,9 +361,9 @@ def get_help():
     '''
     return Response(help_text, mimetype='text/plain')
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser('Harry Potter API')
-    parser.add_argument('host', help='the host on which this application is running')
-    parser.add_argument('port', type=int, help='the port on which this application is listening')
-    arguments = parser.parse_args()
-    app.run(host=arguments.host, port=arguments.port, debug=True)
+# if __name__ == '__main__':
+#     parser = argparse.ArgumentParser('Harry Potter API')
+#     parser.add_argument('host', help='the host on which this application is running')
+#     parser.add_argument('port', type=int, help='the port on which this application is listening')
+#     arguments = parser.parse_args()
+#     app.run(host=arguments.host, port=arguments.port, debug=True)

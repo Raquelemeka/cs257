@@ -1,96 +1,59 @@
+
 /*
- * books.js
- * Jeff Ondich, 27 April 2016
- * Updated, 5 November 2020
+ * webapp.js
+ * Rui, Raquel 
+ * 20 May, 2025
+ * based on books.js by Jeff Ondich
  */
 
-window.addEventListener("load", initialize);
-
-function initialize() {
-    loadAuthorsSelector();
-
-    let element = document.getElementById('author_selector');
-    if (element) {
-        element.onchange = onAuthorsSelectionChanged;
-    }
+window.addEventListener("load", initialize)
+function initialize(){
+  var element = document.getElementById("get-characters");
+  element.onclick = loadCharacters;
 }
 
-// Returns the base URL of the API, onto which endpoint
-// components can be appended.
 function getAPIBaseURL() {
-    let baseURL = window.location.protocol
-                    + '//' + window.location.hostname
-                    + ':' + window.location.port
-                    + '/api';
-    return baseURL;
+  var baseURL = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + '/api';
+  return baseURL;
 }
 
-function loadAuthorsSelector() {
-    let url = getAPIBaseURL() + '/authors/';
+function loadCharacters() {
+  var url = getAPIBaseURL() + '/characters';
 
-    // Send the request to the books API /authors/ endpoint
-    fetch(url, {method: 'get'})
+  fetch(url, {method: 'get'})
 
-    // When the results come back, transform them from a JSON string into
-    // a Javascript object (in this case, a list of author dictionaries).
-    .then((response) => response.json())
+  .then((response) => response.json())
 
-    // Once you have your list of author dictionaries, use it to build
-    // an HTML table displaying the author names and lifespan.
-    .then(function(result) {
-        // Add the <option> elements to the <select> element
-        let selectorBody = '';
-        for (let k = 0; k < result.authors.length; k++) {
-            let author = result.authors[k];
-            selectorBody += '<option value="' + author['id'] + '">'
-                                + author['surname'] + ', ' + author['given_name']
-                                + '</option>\n';
-        }
+  .then(function(charactersList) {
+      buildCharactersTable(charactersList);
+  })
 
-        let selector = document.getElementById('author_selector');
-        if (selector) {
-            selector.innerHTML = selectorBody;
-        }
-    })
-
-    // Log the error if anything went wrong during the fetch.
-    .catch(function(error) {
-        console.log(error);
-    });
+  .catch(function(error) {
+      console.log(error);
+  });
 }
 
-function onAuthorsSelectionChanged() {
-    let element = document.getElementById('author_selector');
-    if (!element) {
-        return;
-    }
-    let authorID = element.value; 
+// 4) build the <tbody> just like your authors example
+function buildCharactersTable(charactersList) {
+  var tableBody = '';
+  for (var k = 0; k < charactersList.length; k++) {
+      var ch = charactersList[k];
 
-    let url = getAPIBaseURL() + '/books/author/' + authorID;
+      tableBody += '<tr>';
+      tableBody += '<td>' + (ch.name || ''  ) + '</td>';
+      tableBody += '<td>' + (ch.house  || '') + '</td>';
+      tableBody += '<td>' + (ch.blood_status || '') + '</td>';
+      tableBody += '<td>' + (ch.species|| '') + '</td>';
+      tableBody += '<td>' + (ch.gender || '') + '</td>';
+      tableBody += '<td>' + (ch.wand   || '') + '</td>';
+      tableBody += '<td>' + (ch.patronus || '') + '</td>';
+      tableBody += '<td>' + (ch.hair_color || '') + '</td>';
+      tableBody += '</tr>';
+  }
 
-    fetch(url, {method: 'get'})
-
-    .then((response) => response.json())
-
-    .then(function(books) {
-        let tableBody = '';
-        for (let k = 0; k < books.length; k++) {
-            let book = books[k];
-            tableBody += '<tr>'
-                            + '<td>' + book['title'] + '</td>'
-                            + '<td>' + book['publication_year'] + '</td>'
-                            + '</tr>\n';
-        }
-
-        // Put the table body we just built inside the table that's already on the page.
-        let booksTable = document.getElementById('books_table');
-        if (booksTable) {
-            booksTable.innerHTML = tableBody;
-        }
-    })
-
-    .catch(function(error) {
-        console.log(error);
-    });
+  var resultsTableElement = document.getElementById('results_table');
+  if (resultsTableElement) {
+      resultsTableElement.innerHTML = tableBody;
+  }
 }
 

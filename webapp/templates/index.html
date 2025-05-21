@@ -1,5 +1,12 @@
+
 <!DOCTYPE html>
 <html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='webapp.css') }}" />
+  <script type="text/javascript" src="{{ url_for('static', filename='webapp.js') }}" ></script>
+  <title>>Harry Potter Wiki</title>
+</head>
 <head>
   <meta charset="UTF-8" />
   <title>Harry Potter Wiki</title>
@@ -25,6 +32,34 @@
         <input type="text" placeholder="Search…" />
         <button aria-label="Search">🔍</button>
       </div>
+
+      <div style="text-align:center; margin:30px;">
+        <button id="get-characters" style="padding:12px 24px; font-size:16px;">
+          Get All Characters data
+        </button>
+      </div>
+
+      <div id="characters-container" style="max-width:800px; margin:0 auto;"></div>
+
+      <div id="characters-container" style="max-width: 800px; margin: 0 auto;">
+        <table style="width:100%; border-collapse:collapse;">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>House</th>
+              <th>Blood Status</th>
+              <th>Species</th>
+              <th>Gender</th>
+              <th>Wand</th>
+              <th>Patronus</th>
+              <th>Hair Color</th>
+            </tr>
+          </thead>
+          <tbody id="results_table">
+          </tbody>
+        </table>
+      </div>
+
     </main>
 
 </body>
