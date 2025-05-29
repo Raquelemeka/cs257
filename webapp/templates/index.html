@@ -10,56 +10,59 @@
 <head>
   <meta charset="UTF-8" />
   <title>Harry Potter Wiki</title>
-  <link rel="stylesheet" href="mockup1.css" />
+  <link rel="stylesheet" href="webapp.css" />
 </head>
 <body>
     <main class="main-content">
       <header class="header">
-        <h1>Harry Potter Wiki</h1>
-        <!-- We asked chatgpt about how to use the triple bar symbol as the visual representation of the menu(filter) button -->
-        <button class="menu-button" aria-label="Menu">☰</button>
+        <h1 class="logo">HP wiki</h1>
       </header>
-
+      <button class="menu-button" aria-label="Menu">☰</button>
+      <div class="welcome-box">
+        Welcome to the HP wiki, muggles! Are you looking for...
+      </div>
+      <div class="header-controls">
+        <div class="search-box">
+          <input type="text" placeholder="Search…" />
+          <button aria-label="Search">🔍</button>
+        </div>
+        
+      </div>
+  
+  
       <div class="nav-buttons">
-        <a href="mockup2.html">
-            <button>All Characters</button>
-        </a>
-        <button>All Potions</button>
-        <button>All Spells</button>
+        <div class="nav-item">
+          <button id="potions-btn" class="nav-button">Potions</button>
+          <div id="potions-content" class="content-box">
+            <img src="{{ url_for('static', filename='potions_cover.JPG') }}"
+                 alt="Potions cover"
+                 class="content-cover"/>
+            <ul id="potion-list" class="character-list"></ul>
+          </div>
+        </div>
+  
+        <div class="nav-item">
+          <button id="characters-btn" class="nav-button">Characters</button>
+          <div id="characters-content" class="content-box">
+            <img src="{{ url_for('static', filename='characters_cover.jpg') }}"
+                 alt="Characters cover"
+                 class="content-cover"/>
+            <ul id="character-list" class="character-list"></ul>
+          </div>
+        </div>
+      
+    
+        <div class="nav-item">
+          <button id="spells-btn" class="nav-button">Spells</button>
+          <div id="spells-content" class="content-box">
+            <img src="{{ url_for('static', filename='spells_cover.JPG') }}"
+                 alt="Spells cover"
+                 class="content-cover"/>
+            <ul id="spell-list" class="character-list"></ul>
+          </div>
+        </div>
       </div>
-
-      <div class="search-box">
-        <input type="text" placeholder="Search…" />
-        <button aria-label="Search">🔍</button>
-      </div>
-
-      <div style="text-align:center; margin:30px;">
-        <button id="get-characters" style="padding:12px 24px; font-size:16px;">
-          Get All Characters data
-        </button>
-      </div>
-
-      <div id="characters-container" style="max-width:800px; margin:0 auto;"></div>
-
-      <div id="characters-container" style="max-width: 800px; margin: 0 auto;">
-        <table style="width:100%; border-collapse:collapse;">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>House</th>
-              <th>Blood Status</th>
-              <th>Species</th>
-              <th>Gender</th>
-              <th>Wand</th>
-              <th>Patronus</th>
-              <th>Hair Color</th>
-            </tr>
-          </thead>
-          <tbody id="results_table">
-          </tbody>
-        </table>
-      </div>
-
+  
     </main>
 
 </body>

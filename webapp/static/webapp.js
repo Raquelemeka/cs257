@@ -16,44 +16,69 @@ function getAPIBaseURL() {
   var baseURL = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + '/api';
   return baseURL;
 }
+window.addEventListener("load", initialize);
 
-function loadCharacters() {
-  var url = getAPIBaseURL() + '/characters';
-
-  fetch(url, {method: 'get'})
-
-  .then((response) => response.json())
-
-  .then(function(charactersList) {
-      buildCharactersTable(charactersList);
-  })
-
-  .catch(function(error) {
-      console.log(error);
-  });
+function initialize() {
+  // load all three lists right away
+  loadList("potions");
+  loadList("characters");
+  loadList("spells");
 }
 
-// 4) build the <tbody> just like your authors example
-function buildCharactersTable(charactersList) {
-  var tableBody = '';
-  for (var k = 0; k < charactersList.length; k++) {
-      var ch = charactersList[k];
-
-      tableBody += '<tr>';
-      tableBody += '<td>' + (ch.name || ''  ) + '</td>';
-      tableBody += '<td>' + (ch.house  || '') + '</td>';
-      tableBody += '<td>' + (ch.blood_status || '') + '</td>';
-      tableBody += '<td>' + (ch.species|| '') + '</td>';
-      tableBody += '<td>' + (ch.gender || '') + '</td>';
-      tableBody += '<td>' + (ch.wand   || '') + '</td>';
-      tableBody += '<td>' + (ch.patronus || '') + '</td>';
-      tableBody += '<td>' + (ch.hair_color || '') + '</td>';
-      tableBody += '</tr>';
-  }
-
-  var resultsTableElement = document.getElementById('results_table');
-  if (resultsTableElement) {
-      resultsTableElement.innerHTML = tableBody;
-  }
+function getAPIBaseURL() {
+  return (
+    window.location.protocol +
+    "//" +
+    window.location.hostname +
+    ":" +
+    window.location.port +
+    "/api"
+  );
 }
 
+/**
+ * type: one of "potions" | "characters" | "spells"
+ */
+function loadList(type) {
+  const endpoint = `${getAPIBaseURL()}/${type}?limit=200`;
+  const listId =
+    type === "characters"
+      ? "character-list"
+      : type === "potions"
+      ? "potion-list"
+      : "spell-list";
+  const ul = document.getElementById(listId);
+  const container = document.getElementById(`${type}-content`);
+  const img = container.querySelector("img.content-cover");
+
+  // show loading placeholder
+  ul.innerHTML = "<li>Loading…</li>";
+  img.style.opacity = 0.2;
+
+  fetch(endpoint)
+    .then((res) => res.json())
+    .then((items) => {
+      // clear placeholder
+      ul.innerHTML = "";
+
+      // sort alphabetically
+      items.sort((a, b) => a.name.localeCompare(b.name));
+
+      items.forEach((item) => {
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+        a.textContent = item.name;
+        // link to detail page (you'll create these next)
+        a.href = `/${type.slice(0, -1)}.html?id=${item.id}`;
+        li.appendChild(a);
+        ul.appendChild(li);
+      });
+
+      // restore image opacity
+      img.style.opacity = 0.9;
+    })
+    .catch((err) => {
+      ul.innerHTML = "<li class='error'>Failed to load.</li>";
+      console.error(err);
+    });
+}
