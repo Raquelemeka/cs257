@@ -1,0 +1,30 @@
+User Testing Observations
+Rui
+30 May 2025
+
+Things the testers found easy
+- easy to click on an item from three boxes in the homepage to get more detail
+- search for characters/potions/spells whose names contain the search string and 
+    use the suggestion box to find the item and go to detail page
+- easy to find where to find menu cause the menu button is the most classic regular three-bar one 
+    (although now our menu sidebar itself does not work somehow)
+
+Things people had trouble with
+- on home page, many people asked what they should/could search so it is not clear what the website may contain
+    I think maybe we can add more instrustion in the search box saying like search for characetrs/potions/spells.
+- sometimes people click on the little icon showing characters/potion/spell but those are just images and 
+    are not button
+- One tester mentioned that it is not convenient to have all the items listed in the homepage 
+    while people have to scroll all the way down to find someone
+    I wonder if the yet-completed implementation
+-searching spells with the incantation and can't find the spell
+    (it is an intuitive thing to do so maybe we should let the search be able to search spell with incantation too)
+
+Other positive comments or observations
+- people like the wand cursor and it is not confusing. People know it is the cursor
+- the search bar works well and is easy to use overall
+- one tester liked the scrollable item boxes
+
+Other suggestions for improvement
+- two tester found that when you go to detail page the wand cursor becomes normal cursor, 
+    so it could be changed to be ore consistent
