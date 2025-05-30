@@ -82,7 +82,7 @@ body {
   font-family: cursive;
   cursor: url('/static/wand_cursor.ico'), pointer;
 }
-.search-box button:active {
+.search-container button:active {
   cursor: url('/static/wand_cursor_click.ico'), pointer;
 }
 
