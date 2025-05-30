@@ -1,84 +1,168 @@
+//webapp.js
+//Rui, Raquel
+//29 May, 2025
 
-/*
- * webapp.js
- * Rui, Raquel 
- * 20 May, 2025
- * based on books.js by Jeff Ondich
- */
 
-window.addEventListener("load", initialize)
-function initialize(){
-  var element = document.getElementById("get-characters");
-  element.onclick = loadCharacters;
+window.onload = function() {
+  loadCharacters();
+  loadPotions();
+  loadSpells();
+
+  var input     = document.getElementById('global-search');
+  var suggList  = document.getElementById('search-suggestions');
+  var searchBtn = document.getElementById('search-btn');
+
+  input.oninput = function() {
+    showSuggestions(input.value);
+  };
+
+  document.body.onclick = function(e) {
+    if (e.target !== input) {
+      suggList.style.display = 'none';
+    }
+  };
+
+  searchBtn.onclick = function() {
+    var q = input.value.trim();
+    if (q !== '') {
+      window.location = '/search?q=' + encodeURIComponent(q);
+    }
+  };
+
+  // side-menu
+  document.getElementById('open-menu').onclick  = openMenu;
+  document.getElementById('close-menu').onclick = closeMenu;
+  document.getElementById('menu-overlay').onclick = closeMenu;
+};
+
+function apiUrl(path) {
+  return window.location.protocol + '//' +
+         window.location.hostname + ':' +
+         window.location.port +
+         '/api' + path;
 }
 
-function getAPIBaseURL() {
-  var baseURL = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + '/api';
-  return baseURL;
-}
-window.addEventListener("load", initialize);
 
-function initialize() {
-  // load all three lists right away
-  loadList("potions");
-  loadList("characters");
-  loadList("spells");
-}
-
-function getAPIBaseURL() {
-  return (
-    window.location.protocol +
-    "//" +
-    window.location.hostname +
-    ":" +
-    window.location.port +
-    "/api"
-  );
-}
-
-/**
- * type: one of "potions" | "characters" | "spells"
- */
-function loadList(type) {
-  const endpoint = `${getAPIBaseURL()}/${type}?limit=200`;
-  const listId =
-    type === "characters"
-      ? "character-list"
-      : type === "potions"
-      ? "potion-list"
-      : "spell-list";
-  const ul = document.getElementById(listId);
-  const container = document.getElementById(`${type}-content`);
-  const img = container.querySelector("img.content-cover");
-
-  // show loading placeholder
-  ul.innerHTML = "<li>Loading…</li>";
-  img.style.opacity = 0.2;
-
-  fetch(endpoint)
-    .then((res) => res.json())
-    .then((items) => {
-      // clear placeholder
-      ul.innerHTML = "";
-
-      // sort alphabetically
-      items.sort((a, b) => a.name.localeCompare(b.name));
-
-      items.forEach((item) => {
-        const li = document.createElement("li");
-        const a = document.createElement("a");
-        a.textContent = item.name;
-        // link to detail page (you'll create these next)
-        a.href = `/${type.slice(0, -1)}.html?id=${item.id}`;
+function loadCharacters() {
+  var ul = document.getElementById('character-list');
+  ul.innerHTML = '<li>Loading…</li>';
+  fetch(apiUrl('/characters?limit=200'))
+    .then(function(r) { return r.json(); })
+    .then(function(chars) {
+      ul.innerHTML = '';
+      for (var i = 0; i < chars.length; i++) {
+        var c = chars[i];
+        var li = document.createElement('li');
+        var a  = document.createElement('a');
+        a.href = '/character?id=' + c.id;
+        a.textContent = c.name;
         li.appendChild(a);
         ul.appendChild(li);
-      });
-
-      // restore image opacity
-      img.style.opacity = 0.9;
+      }
     })
-    .catch((err) => {
-      ul.innerHTML = "<li class='error'>Failed to load.</li>";
-      console.error(err);
+    .catch(function() {
+      ul.innerHTML = '<li>Error loading characters.</li>';
     });
+}
+
+
+function loadPotions() {
+  var ul = document.getElementById('potion-list');
+  ul.innerHTML = '<li>Loading…</li>';
+  fetch(apiUrl('/potions?limit=200'))
+    .then(function(r) { return r.json(); })
+    .then(function(pots) {
+      ul.innerHTML = '';
+      for (var i = 0; i < pots.length; i++) {
+        var p = pots[i];
+        var li = document.createElement('li');
+        var a  = document.createElement('a');
+        a.href = '/potion?id=' + p.id;
+        a.textContent = p.name;
+        li.appendChild(a);
+        ul.appendChild(li);
+      }
+    })
+    .catch(function() {
+      ul.innerHTML = '<li>Error loading potions.</li>';
+    });
+}
+
+
+function loadSpells() {
+  var ul = document.getElementById('spell-list');
+  ul.innerHTML = '<li>Loading…</li>';
+  fetch(apiUrl('/spells?limit=200'))
+    .then(function(r) { return r.json(); })
+    .then(function(spells) {
+      ul.innerHTML = '';
+      for (var i = 0; i < spells.length; i++) {
+        var s = spells[i];
+        var li = document.createElement('li');
+        var a  = document.createElement('a');
+        a.href = '/spell?id=' + s.id;
+        a.textContent = s.name;
+        li.appendChild(a);
+        ul.appendChild(li);
+      }
+    })
+    .catch(function() {
+      ul.innerHTML = '<li>Error loading spells.</li>';
+    });
+}
+
+// suggestion bar
+function showSuggestions(query) {
+  var ul = document.getElementById('search-suggestions');
+  ul.innerHTML = '';          
+  if (query === '') {
+    ul.style.display = 'none';
+    return;
+  }
+  ul.style.display = 'block'; 
+
+  // characters
+  fetch(apiUrl('/characters?name=' + encodeURIComponent(query) + '&limit=5'))
+    .then(function(r) { return r.json(); })
+    .then(function(chars) {
+      addSuggestions('character', chars);
+      // potions
+      return fetch(apiUrl('/potions?name=' + encodeURIComponent(query) + '&limit=5'));
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(pots) {
+      addSuggestions('potion', pots);
+      //spells
+      return fetch(apiUrl('/spells?name=' + encodeURIComponent(query) + '&limit=5'));
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(spells) {
+      addSuggestions('spell', spells);
+    })
+    .catch(function() {
+      ul.style.display = 'none'; 
+    });
+}
+
+function addSuggestions(type, items) {
+  var ul = document.getElementById('search-suggestions');
+  for (var i = 0; i < items.length; i++) {
+    var item = items[i];
+    var li = document.createElement('li');
+    var a = document.createElement('a');
+    a.href = '/' + type + '?id=' + item.id;
+    a.textContent = item.name + ' (' + type + ')';
+    li.appendChild(a);
+    ul.appendChild(li);
+  }
+}
+
+// side-menu open/close
+function openMenu() {
+  document.getElementById('side-menu').classList.add('open');
+  document.getElementById('menu-overlay').classList.add('open');
+}
+function closeMenu() {
+  document.getElementById('side-menu').classList.remove('open');
+  document.getElementById('menu-overlay').classList.remove('open');
 }
