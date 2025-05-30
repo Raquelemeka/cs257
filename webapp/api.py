@@ -361,9 +361,3 @@ def get_help():
     '''
     return Response(help_text, mimetype='text/plain')
 
-# if __name__ == '__main__':
-#     parser = argparse.ArgumentParser('Harry Potter API')
-#     parser.add_argument('host', help='the host on which this application is running')
-#     parser.add_argument('port', type=int, help='the port on which this application is listening')
-#     arguments = parser.parse_args()
-#     app.run(host=arguments.host, port=arguments.port, debug=True)

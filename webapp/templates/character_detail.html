@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Character Detail | HP Wiki</title>
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='character_detail.css') }}"
+  />
+
+  <script
+  defer
+  src="{{ url_for('static', filename='character_detail.js') }}"
+></script>
+</head>
+<body>
+  <main class="main-content">
+
+    <header class="header">
+      <h3>
+        <a href="/" class="homepage-link">← Back to Home</a>
+      </h3>
+    </header>
+
+    <section class="character-header">
+      <h1 id="char-name">Loading…</h1>
+    </section>
+
+    <div class="detail-container">
+      <dl id="properties" class="properties">
+      </dl>
+      <div class="portrait">
+        <img
+          id="char-portrait"
+          src="placeholder.png"
+          alt="Portrait"
+        />
+      </div>
+
+      
+    </div>
+
+  </main>
+</body>
+</html>

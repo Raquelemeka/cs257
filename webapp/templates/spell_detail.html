@@ -1,0 +1,42 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Potion Detail | HP Wiki</title>
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='potion_detail.css') }}"
+  />
+
+  <script
+  defer
+  src="{{ url_for('static', filename='potion_detail.js') }}"
+></script>
+</head>
+<body>
+  <main class="main-content">
+
+    <header class="header">
+      <h3>
+        <a href="/" class="homepage-link">← Back to Home</a>
+      </h3>
+    </header>
+
+    <section class="potion-header">
+      <h1 id="potion-name">Loading…</h1>
+    </section>
+
+    <div class="detail-container">
+      <dl id="properties" class="properties">
+      </dl>
+      <div class="potionImage">
+      </div>
+
+      
+    </div>
+
+  </main>
+</body>
+</html>
