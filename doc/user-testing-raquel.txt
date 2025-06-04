@@ -1,0 +1,40 @@
+User Testing Observations
+June 3, 2025
+Raquel
+
+
+Things the testers found easy
+- Searching for specific potions on the provided list, and clicking to get the detailed page about specific potions
+- Using the search bar to find potions even when they didn’t know the exact name—suggestions made it easy to locate what they were looking for (e.g., typing "bruise" or “removal” brought up Bruise Removal Paste)
+- Navigating between pages using the “Back to Home” button
+
+Things people had trouble with
+- On the home page, a few people tried to click on the large images for Potions, Characters, and Spells, expecting them to be interactive
+- People tried to click on the three bars at the top right on the home page, expecting a menu—this issue will be resolved once we are
+  done building the website.
+- Some users weren’t sure what to search for at first—the search bar didn’t give them enough guidance
+- The “Back to Home” link on the detail page was overlooked by some users because ‘it’s a bit small’
+
+Other positive comments or observations
+- People liked the design of the specific potion pages (e.g Ageing Potion). They also really liked the pixel art style and magical theme.They
+ said it “felt cohesive with the HP universe”.
+- People liked the font used.
+- Users liked that they didn’t have to remember or type the full name of something to find it—autocomplete suggestions helped a lot
+
+Other suggestions for improvement
+- Make the big images (Potions, Characters, Spells) clickable; have them lead to a full icon list for that category
+- Remove or simplify the potion list on the home page—some users thought it looked cluttered
+- Make the “Back to Home” button either bigger or bolder so it stands out more
+- Make the “Welcome to the HP wiki, muggles! Are you looking for…” bigger so it matches the rest of the text. 
+- Align or anchor the homepage text better; one person noted that the text “floats” too much and feels unstructured
+- Someone suggested that we either get rid of the HP wiki at the top right or turn it into an icon just so people dont try 
+to click on it or hover over it.
+
+Other notes [if any didn’t fit the other categories]
+- Someone suggested that if we go with the idea of having just the search bar and three clickable icons on the homepage (Potions, Characters,
+and Spells), and have those icons lead to an icon list of all the items in that category, we could also add filters or 
+sorting options (e.g by potion difficulty).
+
+
+
+
