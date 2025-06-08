@@ -14,7 +14,7 @@ app.register_blueprint(api.api, url_prefix='/api')
 
 @app.route('/') 
 def home():
-    return flask.render_template('index.html')
+    return flask.render_template('homepage.html')
 
 @app.route('/character')
 def character_detail():
@@ -27,6 +27,14 @@ def potion_detail():
 @app.route('/spell')
 def spell_detail():
     return render_template('spell_detail.html')
+
+@app.route('/filterpage')
+def filterpage():
+    return render_template('filterpage.html')
+
+@app.route('/help')
+def help():
+    return render_template('help.html')
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser('A books-and-authors application, including API & DB')

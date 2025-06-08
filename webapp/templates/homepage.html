@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='webapp.css') }}" />
+  <script defer src="{{ url_for('static', filename='webapp.js') }}" ></script>
+  <title>>Harry Potter Wiki</title>
+</head>
+<head>
+  <meta charset="UTF-8" />
+  <title>Harry Potter Wiki</title>
+  <link rel="stylesheet" href="webapp.css" />
+</head>
+<body>
+  <div id="menu-overlay" class="menu-overlay"></div>
+
+  <!-- the side-drawer itself -->
+  <nav id="side-menu" class="side-menu">
+    <button id="close-menu" class="close-menu">×</button>
+    <h2>Menu</h2>
+    <button class="menu-item">Advanced Search</button>
+    <button class="menu-item">Browse by House</button>
+    <button class="menu-item">Random Character</button>
+    <button class="menu-item">Settings</button>
+  </nav>
+
+  <main class="main-content">
+    <header class="header">
+      <h1 class="logo">HP wiki</h1>
+    </header>
+    <button id="open-menu" class="menu-button" aria-label="Menu">☰</button>
+    <div class="welcome-box">
+      Welcome to the HP wiki, muggles! Are you looking for...
+    </div>
+    <div class="header-controls">
+      <div class="search-container">
+        <input id="global-search" type="text" placeholder="Search character/potion/spell names…" autocomplete="off" />
+        <button aria-label="Search">🔍</button>
+        <ul id="search-suggestions" class="suggestions"></ul>
+      </div>
+    </div>
+    <div class="nav-buttons">
+      <div class="nav-item">
+        <a href="{{ url_for('filterpage') }}">
+          <button id="potions-btn" class="nav-button">Potions</button>
+        </a>
+        
+        <div id="potions-content" class="content-box">
+          <img src="{{ url_for('static', filename='potions_cover.JPG') }}"
+                alt="Potions cover"
+                class="content-cover"/>
+          <ul id="potion-list" class="character-list"></ul>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <a href="{{ url_for('filterpage') }}">
+        <button id="characters-btn" class="nav-button">Characters</button>
+        </a>
+        <div id="characters-content" class="content-box">
+          <img src="{{ url_for('static', filename='characters_cover.jpg') }}"
+                alt="Characters cover"
+                class="content-cover"/>
+          <ul id="character-list" class="character-list"></ul>
+        </div>
+      </div>
+    
+  
+      <div class="nav-item">
+        <a href="{{ url_for('filterpage') }}">
+        <button id="spells-btn" class="nav-button">Spells</button>
+       </a>
+        <div id="spells-content" class="content-box">
+          <img src="{{ url_for('static', filename='spells_cover.JPG') }}"
+                alt="Spells cover"
+                class="content-cover"/>
+          <ul id="spell-list" class="character-list"></ul>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+</body>
+</html>

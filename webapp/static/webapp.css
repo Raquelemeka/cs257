@@ -47,7 +47,6 @@ body {
 }
 .search-container {
   position: relative; 
-  display: flex;
   align-items: center;      
   background: rgba(254, 253, 252, 0.4);
   border: transparent;
@@ -58,27 +57,27 @@ body {
 }
 
 .search-container input {
-  flex: 1;
   padding: 0 16px;    
-  font-size: 12px;
+  font-size: 14px;
   background: transparent;
   border: none;
   outline: none;
   border-radius: 25px 0 0 25px;
+  width:50%;
   height: 100%;        
   line-height: 28px; 
   
 }
 .search-container button {
-  margin-left: auto;
-  flex: 0;  
-  width: 40px;        
+  position: absolute; 
+  margin-left: 210px; 
+  width: 60px;        
   height: 100%;
   border: none;
   background:rgba(93, 36, 198, 0.8);
   color: rgba(254,253,252,0.9);
-  font-size: 16px;    
-  border-radius: 0 25px 25px 0;
+  font-size: 20px;    
+  border-radius: 0 70px 70px 0;
   font-family: cursive;
   cursor: url('/static/wand_cursor.ico'), pointer;
 }
@@ -172,13 +171,17 @@ body {
   list-style: none;    
   padding: 12px 20px;
   max-height: 250px;    
-  overflow-y: auto;
+  overflow-y: auto;  
+  cursor: url('/static/wand_cursor.ico'), auto;
 }
 .character-list li a {
   color: black;
   text-decoration: none;
+  cursor: url('/static/wand_cursor.ico'), auto;
 }
-
+.character-list li a :active {
+  cursor: url('/static/wand_cursor_click.ico'), pointer;
+}
 .character-list li a:visited {
   color: rgb(15, 15, 85);
 }

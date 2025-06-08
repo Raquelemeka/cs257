@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>HP wiki API reference</title>
+</head>
+<body>
+    <pre>
+    All responses are in JSON
+    REQUEST: /
+    RESPONSE:
+    Our homepage
+
+    REQUEST: /help
+    RESPONSE:
+    This message.
+
+    REQUEST: /characters[?house={HOUSE}&blood_status={STATUS}&species={SPECIES}&name={NAME}&limit={LIMIT}]
+    RESPONSE:
+    A list of characters matching the specified GET parameters.
+    Each character is a JSON object with keys:
+        - blood_status, gender, hair_color, house, id, name, patronous, species, wand
+    Example:
+        request: localhost:5122/characters?species=human&blood_status=Pure-blood&limit=3&house=Slytherin&name=Malfoy
+        response:[
+                    {
+                        "blood_status": "Pure-blood",
+                        "gender": "Male",
+                        "hair_color": "White-blond",
+                        "house": "Slytherin",
+                        "id": 47,
+                        "name": "Draco Malfoy",
+                        "patronus": "Unknown",
+                        "species": "Human",
+                        "wand": "10\" Hawthorn unicorn hair"
+                    },
+                    {
+                        "blood_status": "Pure-blood",
+                        "gender": "Male",
+                        "hair_color": "White-blond",
+                        "house": "Slytherin",
+                        "id": 53,
+                        "name": "Lucius Malfoy",
+                        "patronus": "Unknown",
+                        "species": "Human",
+                        "wand": "Elm and dragon heartstring"
+                    },
+                    {
+                        "blood_status": "Pure-blood",
+                        "gender": "Female",
+                        "hair_color": "Blonde",
+                        "house": "Slytherin",
+                        "id": 54,
+                        "name": "Narcissa Malfoy",
+                        "patronus": "Unknown",
+                        "species": "Human",
+                        "wand": "Unknown"
+                    }
+                    ]
+
+    REQUEST: /spells[?name={NAME}&type={TYPE}&effect={EFFECT}&light={LIGHT}]
+    RESPONSE:
+    A list of spells matching the specified GET parameters.
+    Each spell is a JSON object with keys:
+        - effect, id, incantation, light, name, type
+    Example:
+        request:localhost:5122/spells?effect=force
+        response:[
+                    {
+                        "effect": "Great Force",
+                        "id": 5,
+                        "incantation": "Unknown",
+                        "light": "None",
+                        "name": "Albus Dumbledore's Forceful Spell",
+                        "type": "Spell"
+                    },
+                    {
+                        "effect": "Forces target to let go",
+                        "id": 228,
+                        "incantation": "Relashio",
+                        "light": "Purple",
+                        "name": "Revulsion Jinx",
+                        "type": "Jinx"
+                    },
+                    {
+                        "effect": "Reflects spells and blocks physical forces",
+                        "id": 214,
+                        "incantation": "Protego",
+                        "light": "Invisible on its own, reflects light of spell",
+                        "name": "Shield Charm",
+                        "type": "Charm"
+                    }
+                    ]
+
+    REQUEST: /potions[?name={NAME}&effect={EFFECT}&difficulty={LEVEL}]
+    RESPONSE:
+    A list of potions matching the specified GET parameters.
+    Each potion is a JSON object with keys:
+        - characteristics, difficulty_level, effect, id, ingredients, name
+    Example: 
+        request:localhost:5122/potions?effect=induce&difficulty=advanced
+        response:[
+                    {
+                        "characteristics": "Sunshine yellow in colour, Sweet, Aromatic, Emits rainbow when finished",
+                        "difficulty_level": "Advanced",
+                        "effect": "Induces happiness",
+                        "id": 31,
+                        "ingredients": [
+                        "Shrivelfig",
+                        "Porcupine quills",
+                        "Peppermint sprigs",
+                        "Sopophorous beans",
+                        "Wormwood"
+                        ],
+                        "name": "Elixir to Induce Euphoria"
+                    }
+                    ]
+    
+    </pre>
+</body>
+</html>

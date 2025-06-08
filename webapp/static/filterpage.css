@@ -1,0 +1,260 @@
+/*
+   webapp.css
+   29 May 2025
+   Rui, Raquel
+*/
+
+body {
+    margin: 20px 50px 50px 50px;
+    font-family: cursive;
+    background:
+      url('/static/filterpage_background.PNG') center/cover no-repeat;
+    background-position: center 10%;
+    color: #3b3a3a;
+    cursor: url('/static/wand_cursor.ico'), auto;
+  }
+  
+  .main-content {
+    flex: 1;  
+    padding-right: 20px;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+  
+  }
+  
+  .header-controls {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;   
+  }
+  
+  .welcome-box {
+    max-width: 800px;
+    margin: 0px 0 20px 20px;
+    padding: 12px 20px;
+    background: transparent;
+    border-radius: 8px;
+    text-align: left;
+    font-family: cursive;
+    font-size: 25px;
+    color:black;
+  }
+  .search-container {
+    position: relative; 
+    align-items: center;      
+    background: rgba(254, 253, 252, 0.4);
+    border: transparent;
+    border-radius:  25px;
+    width: 600px;
+    height: 45px;
+    
+  }
+  
+  .search-container input {
+    padding: 0 16px;    
+    font-size: 14px;
+    background: transparent;
+    border: none;
+    outline: none;
+    border-radius: 25px 0 0 25px;
+    width:50%;
+    height: 100%;        
+    line-height: 28px; 
+    
+  }
+  .search-container button {
+    position: absolute; 
+    margin-left: 210px; 
+    width: 60px;        
+    height: 100%;
+    border: none;
+    background:rgba(93, 36, 198, 0.8);
+    color: rgba(254,253,252,0.9);
+    font-size: 20px;    
+    border-radius: 0 70px 70px 0;
+    font-family: cursive;
+    cursor: url('/static/wand_cursor.ico'), pointer;
+  }
+  .search-container button:active {
+    cursor: url('/static/wand_cursor_click.ico'), pointer;
+  }
+  
+  .suggestions {
+    position: absolute;
+    top: 100%;   
+    display: none;            
+    background: white;
+    border: 1px solid #ccc;
+    border-top: none;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 10;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .suggestions li {
+    padding: 8px 12px;
+    cursor: pointer;
+    font-family: cursive;
+  }
+  
+  .suggestions li:hover {
+    background: rgba(200,200,200,0.3);
+  }
+  
+  .header h1.logo {
+    font-family: cursive;
+    font-size: 15px;
+    color:black;
+    margin: 0;
+    position: absolute;
+    top: 0px;  
+    left: 0px;
+  }
+  
+  .menu-button {
+    background: none;
+    border: none;
+    font-size: 25px;
+    cursor: pointer;
+    margin:  20px 0 20px 1350px;
+    cursor: url('/static/wand_cursor.ico'), pointer;
+  }
+  .menu-button:active {
+    cursor: url('/static/wand_cursor_click.ico'), pointer;
+  }
+  
+  
+  .nav-buttons {
+    display: flex;
+    justify-content: space-evenly;  
+    max-width: 1400px;
+    margin: 20px auto 30px; 
+  }
+  .nav-buttons button {
+    padding: 12px 24px;
+    border: transparent;
+    background: transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 40px ;
+    font-family: cursive;
+    font-weight: 600;
+    cursor: url('/static/wand_cursor.ico'), pointer;
+  }
+  .nav-buttons button:active {
+    cursor: url('/static/wand_cursor_click.ico'), pointer;
+  }
+  .content-box {
+    width: 300px;
+    min-height: 400px;         
+    margin: 20px auto;
+    padding: 20px;
+    background: rgba(255,255,255,0.6);
+    border-radius: 8px;
+    box-sizing: border-box;
+    text-align: center;
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 0;
+  }
+  
+  .character-list {
+    list-style: none;    
+    padding: 12px 20px;
+    max-height: 250px;    
+    overflow-y: auto;  
+    cursor: url('/static/wand_cursor.ico'), auto;
+  }
+  .character-list li a {
+    color: black;
+    text-decoration: none;
+    cursor: url('/static/wand_cursor.ico'), auto;
+  }
+  .character-list li a :active {
+    cursor: url('/static/wand_cursor_click.ico'), pointer;
+  }
+  .character-list li a:visited {
+    color: rgb(15, 15, 85);
+  }
+  
+  .content-cover {
+    max-width: 150px;
+    max-height: 150px;
+    border-radius: 4px;
+    opacity: 0.9;
+    position: sticky;
+    top: 5px;
+    z-index: 1;   
+  }
+  
+  .menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+    z-index: 100; 
+  }
+  
+  .side-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 250px;
+    height: 100%;
+    background:whitesmoke;
+    box-shadow: -4px 0 8px rgba(0,0,0,0.2);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    z-index: 101;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .side-menu.open {
+    transform: translateX(0);
+  }
+  .menu-overlay.open {
+    opacity: 1;
+    visibility: visible;
+  }
+  .close-menu {
+    background: none;
+    border: none;
+    font-size: 24px;
+    line-height: 1;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    cursor: url('/static/wand_cursor.ico'), pointer;
+  }
+  
+  .menu-item {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    background: #704bc0;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-family: cursive;
+    font-size: 16px;
+    text-align: left;
+    cursor: url('/static/wand_cursor.ico'), pointer;
+  }
+  
+  
+  
