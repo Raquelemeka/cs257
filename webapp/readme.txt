@@ -1,4 +1,4 @@
-AUTHORS: Rui Shen, (Raquel)
+AUTHORS: Rui Shen, Raquel Emeka
 
 DATA: Our datasets includes detail and properties of characters, potions and spells appear in 'Harry Potter' by JK Rowling
 
