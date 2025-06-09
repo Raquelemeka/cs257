@@ -70,7 +70,7 @@ Also, to make it clearer what is a button and what is just text, I added a pop e
 
 
 What's not:
-I had an idea to allow users to go to a detail page from the filter page, and when they click go to filter button,
+We had an idea to allow users to go to a detail page from the filter page, and when they click go to filter button,
 the filter page they visit again would save the filter setting they had last time so they do not have to select all the things again.
 However, it has not been realized yet cause I tried a several different ideas and could not implement it without breaking other part of my code.
 Also, although we have a search button on the search bar in the homepage, it does not serve as the agent to apply search.
