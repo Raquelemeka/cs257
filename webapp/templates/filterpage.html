@@ -3,43 +3,35 @@
 <head>
   <meta charset="UTF-8" />
   <title>Filter search | HP Wiki</title>
-  <link
-    rel="stylesheet"
-    href="{{ url_for('static', filename='filterpage.css') }}"
-  />
-
-  <script
-  defer
-  src="{{ url_for('static', filename='filterpage.js') }}"
-></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='filterpage.css') }}" />
+  <script defer src="{{ url_for('static', filename='filterpage.js') }}"></script>
 </head>
 <body>
   <main class="main-content">
-
     <header class="header">
       <h3>
-        <a href="/" class="homepage-link">← Back to Home</a>
+        <a href='/' class="homepage-link">← Back to Home</a>
       </h3>
     </header>
 
-    <section class="character-header">
-      <h1 id="char-name">Loading…</h1>
-    </section>
-
-    <div class="detail-container">
-      <dl id="properties" class="properties">
-      </dl>
-      <div class="portrait">
-        <img
-          id="char-portrait"
-          src="placeholder.png"
-          alt="Portrait"
-        />
+    <div class="filter-bar">
+      <label>
+        Type:
+        <select id="item-type">
+          <option value="">-- choose --</option>
+          <option value="characters">Characters</option>
+          <option value="potions">Potions</option>
+          <option value="spells">Spells</option>
+        </select>
+      </label>
+      <div id="filters">
       </div>
-
-      
+      <button id="apply-filters">Apply</button>
     </div>
 
+    <div id="results">
+      <p>Select a type and filters, then click Apply to see results.</p>
+    </div>
   </main>
 </body>
 </html>

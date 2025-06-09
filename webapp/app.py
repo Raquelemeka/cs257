@@ -1,7 +1,7 @@
 '''
     app.py
     Rui, Raquel
-    20 May, 2025
+    9 Jun, 2025
     based on books_webapp.py by Jeff Ondich
 '''
 import flask
@@ -32,7 +32,7 @@ def spell_detail():
 def filterpage():
     return render_template('filterpage.html')
 
-@app.route('/help')
+@app.route('/api/help')
 def help():
     return render_template('help.html')
 

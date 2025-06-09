@@ -1,9 +1,10 @@
 // static/spell-detail.js
+//9 Jun, 2025
+//Rui Shen
 
+window.addEventListener('load', initialize);
 
-window.addEventListener('load', initializeSpellDetail);
-
-function initializeSpellDetail() {
+function initialize() {
   
   var search = window.location.search; 
   var id     = null;
@@ -12,7 +13,7 @@ function initializeSpellDetail() {
   }
 
   var nameH = document.getElementById('spell-name');
-  var dl    = document.getElementById('properties');
+  var dl= document.getElementById('properties');
 
   if (!id) {
     nameH.textContent = 'No spell selected.';
@@ -50,7 +51,6 @@ function initializeSpellDetail() {
         ['Effect',spell.effect],
         ['Light',spell.light]
       ];
-
 
       for (var j = 0; j < props.length; j++) {
         var dt = document.createElement('dt');

@@ -2,7 +2,7 @@
 '''
 api.py
 Rui and Raquel
-10 May, 2025
+9 Jun, 2025
 Harry Potter API Implementation
 Adapted from flask_sample.py and psycopg2-sample.py by Jeff Ondich
 '''
@@ -22,8 +22,6 @@ try:
 except ImportError:
     print("Error: Could not import database configuration from config.py")
     sys.exit(1)
-
-
 
 #get connection with database
 def get_db_connection():
@@ -54,7 +52,9 @@ def get_characters():
         name: filter by name containing string
         limit: limit number of results (default: 100)
     '''
+
     house_filter = request.args.get('house', default='', type=str)
+    gender_filter  = request.args.get('gender',    default='', type=str)  
     blood_status_filter = request.args.get('blood_status', default='', type=str)
     species_filter = request.args.get('species', default='', type=str)
     name_filter = request.args.get('name', default='', type=str)
@@ -92,6 +92,9 @@ def get_characters():
             if blood_status_filter:
                 query += " AND LOWER(bs.status) LIKE LOWER(%s)"
                 params.append(f"%{blood_status_filter}%")
+            if gender_filter:                
+                query += " AND LOWER(c.gender) LIKE LOWER(%s)"
+                params.append(f"%{gender_filter}%")
             if species_filter:
                 query += " AND LOWER(sp.name) LIKE LOWER(%s)"
                 params.append(f"%{species_filter}%")

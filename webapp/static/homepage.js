@@ -1,4 +1,4 @@
-//webapp.js
+//homepage.js
 //Rui, Raquel
 //29 May, 2025
 
@@ -28,11 +28,6 @@ window.onload = function() {
       window.location = '/search?q=' + encodeURIComponent(q);
     }
   };
-
-  // side-menu
-  document.getElementById('open-menu').onclick  = openMenu;
-  document.getElementById('close-menu').onclick = closeMenu;
-  document.getElementById('menu-overlay').onclick = closeMenu;
 };
 
 function apiUrl(path) {
@@ -157,12 +152,3 @@ function addSuggestions(type, items) {
   }
 }
 
-// side-menu open/close
-function openMenu() {
-  document.getElementById('side-menu').classList.add('open');
-  document.getElementById('menu-overlay').classList.add('open');
-}
-function closeMenu() {
-  document.getElementById('side-menu').classList.remove('open');
-  document.getElementById('menu-overlay').classList.remove('open');
-}

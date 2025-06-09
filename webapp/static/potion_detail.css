@@ -4,108 +4,138 @@ html, body {
     height: 100%;
   }
   
-  body {
-    margin: 0;
-    font-family: cursive;
-    color: #3b3a3a;
-    background: 
-    url('/static/detail_background.JPG') no-repeat center center;
-    background-size: 100% 100%;
-    position: relative;
-    cursor: url('/static/wand_cursor.ico'), auto;
-    }
-    
-    
-  .main-content {
-    flex: 1;
-    padding: 120px 50px 50px; 
-    max-width: 1200px;
-    margin: 0 auto;
-    }
-    
-  
-  .main-content h3 {
-    margin: 0;
-    font-weight: normal;
-  }
-  
-  .homepage-link {  
-    margin-left: 70px;
-    text-decoration: none;
-    color: black;          
-    cursor: pointer;        
-    padding: 4px 8px;        
-    border-radius: 4px; 
-    font-size: 25px;;
-    cursor: url('/static/wand_cursor.ico'), auto;   
-    }
-  .homepage-link:active {
-    cursor: url('/static/wand_cursor_click.ico'), pointer;
-  }
-  
-  
-  
-  .potion-header {
+body {
   margin: 0;
+  font-family: cursive;
+  color: #3b3a3a;
+  background: 
+  url('/static/detail_background.JPG') no-repeat center center;
+  background-size: 100% 100%;
+  position: relative;
+  cursor: url('/static/wand_cursor.ico'), auto;
   }
   
-  .potion-header h1 {
-    text-align: center;
-    margin: 0;
-    margin-top: 10px;
-    font-size: 50px;
-    font-family: cursive;
-    color: #3b3a3a;
-  }
-    
-  .detail-container {
-    display: flex;
-    gap: 20px;
-    background-color: transparent;
-    justify-content: flex-start;
-    align-items: flex-start;
-    margin-top: 20px;
-    padding-left: 150px;
-    padding-right: 350px;
-    }
-    
-  .properties {
-    margin: 10px 0 0 25px;
-    display: grid;
-    grid-template-columns: max-content 1fr;
-    grid-row-gap: 15px;     
-    column-gap: 20px;         
-    max-width: 1000px;
-    flex: 1;
-    min-width: 400px;
-    
-    }
   
-  .properties dt {
-    font-weight: bold;
-    color:#3b3a3a;
-    font-size: 25px;
-    }
-  .properties dd {
-    margin: 0;
-    display: inline;
-    color:black;
-    font-size: 25px;
-    }
-  
-  .potionImage {
-    position: absolute;
-    bottom: 300px;
-    right: 250px;           
-    width: 200px;                
-    height: 300px;                
-    background-size: cover;  
-    background: url('/static/potion_detail.png') no-repeat center center;    
-    background-size: contain; 
-    padding: 0;
-    box-sizing: border-box;
-  
+.main-content {
+  flex: 1;
+  padding: 120px 50px 50px; 
+  max-width: 1200px;
+  margin: 0 auto;
   }
   
-    
+
+.main-content h3 {
+  margin: 0;
+  font-weight: normal;
+}
+
+.homepage-link {  
+  margin-left: 70px;
+  text-decoration: none;
+  color:black; ;           
+  padding: 4px 8px;        
+  border-radius: 4px; 
+  font-size: 22px;;
+  font-weight: bold;
+  cursor: url('/static/wand_cursor.ico'), auto;   
+  }
+.homepage-link:active {
+  cursor: url('/static/wand_cursor_click.ico'), pointer;
+}
+
+.filterpage-link {  
+  margin-left: 725px;
+  text-decoration: none;
+  color: black; ;        
+  cursor: pointer;        
+  padding: 4px 8px;        
+  border-radius: 4px;    
+  font-size: 22px;
+  font-weight: bold;
+  cursor: url('/static/wand_cursor.ico'), auto;
+  }
+
+.filterpage-link:active {
+  cursor: url('/static/wand_cursor_click.ico'), pointer;
+}
+
+
+
+.potion-header {
+margin: 0;
+}
+
+.potion-header h1 {
+  text-align: center;
+  margin: 0;
+  margin-top: 10px;
+  font-size: 50px;
+  font-family: cursive;
+  color: #3b3a3a;
+}
   
+.detail-container {
+  display: flex;
+  gap: 20px;
+  background-color: transparent;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-top: 20px;
+  padding-left: 150px;
+  padding-right: 350px;
+  }
+  
+.properties {
+  margin: 10px 0 0 25px;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  grid-row-gap: 15px;     
+  column-gap: 20px;         
+  max-width: 1000px;
+  flex: 1;
+  min-width: 400px;
+  
+  }
+
+.properties dt {
+  font-weight: bold;
+  color:#3b3a3a;
+  font-size: 25px;
+  }
+.properties dd {
+  margin: 0;
+  display: inline;
+  color:black;
+  font-size: 25px;
+  }
+
+.potionImage {
+  position: absolute;
+  bottom: 300px;
+  right: 250px;           
+  width: 200px;                
+  height: 300px;                
+  background-size: cover;  
+  background: url('/static/potion_detail.png') no-repeat center center;    
+  background-size: contain; 
+  padding: 0;
+  box-sizing: border-box;
+
+}
+
+  
+.homepage-link,
+.filterpage-link {
+  display: inline-block;    
+  transition: transform 0.1s;
+}
+
+.homepage-link:hover,
+.filterpage-link:hover {
+  transform: scale(1.05);
+}
+
+.homepage-link:active,
+.filterpage-link:active {
+  transform: scale(1);
+}

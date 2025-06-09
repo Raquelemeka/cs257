@@ -1,169 +1,120 @@
-//webapp.js
-//Rui, Raquel
-//29 May, 2025
+//filterpage.js
+//9 Jun, 2025
+//Rui Shen
+window.addEventListener("load", initialize);
 
+function initialize() {
+  var typeSelect = document.getElementById("item-type");
+  var filtersDiv = document.getElementById("filters");
+  var applyButton = document.getElementById("apply-filters");
+  var resultsDiv = document.getElementById("results");
 
-window.onload = function() {
-    loadCharacters();
-    loadPotions();
-    loadSpells();
-  
-    var input     = document.getElementById('global-search');
-    var suggList  = document.getElementById('search-suggestions');
-    var searchBtn = document.getElementById('search-btn');
-  
-    input.oninput = function() {
-      showSuggestions(input.value);
-    };
-  
-    document.body.onclick = function(e) {
-      if (e.target !== input) {
-        suggList.style.display = 'none';
-      }
-    };
-  
-    searchBtn.onclick = function() {
-      var q = input.value.trim();
-      if (q !== '') {
-        window.location = '/search?q=' + encodeURIComponent(q);
-      }
-    };
-  
-    // side-menu
-    document.getElementById('open-menu').onclick  = openMenu;
-    document.getElementById('close-menu').onclick = closeMenu;
-    document.getElementById('menu-overlay').onclick = closeMenu;
+ // reconstruct the filter
+  typeSelect.onchange = function() {
+    filtersDiv.innerHTML = "";
+    resultsDiv.innerHTML = "<p>Select filters and click Apply to see results.</p>";
+
+    var t = typeSelect.value;
+    if (t === "characters") {
+      createDropdown(filtersDiv, "house",["Gryffindor","Slytherin","Ravenclaw","Hufflepuff"]);
+      createDropdown(filtersDiv, "gender",["Male","Female"]);
+      createDropdown(filtersDiv, "species",["Human","Elf","Goblin","Werewolf"]);
+    }
+    else if (t === "potions") {
+      createTextInput(filtersDiv, "effect");
+      createDropdown(filtersDiv, "difficulty",["Beginner","Intermediate","Advanced"]);
+    }
+    else if (t === "spells") {
+      createTextInput(filtersDiv, "effect");
+      createDropdown(filtersDiv, "type",["Charm","Curse","Hex","Jinx"]);
+    }
   };
-  
-  function apiUrl(path) {
-    return window.location.protocol + '//' +
-           window.location.hostname + ':' +
-           window.location.port +
-           '/api' + path;
-  }
-  
-  
-  function loadCharacters() {
-    var ul = document.getElementById('character-list');
-    ul.innerHTML = '<li>Loading…</li>';
-    fetch(apiUrl('/characters?limit=200'))
-      .then(function(r) { return r.json(); })
-      .then(function(chars) {
-        ul.innerHTML = '';
-        for (var i = 0; i < chars.length; i++) {
-          var c = chars[i];
-          var li = document.createElement('li');
-          var a  = document.createElement('a');
-          a.href = '/character?id=' + c.id;
-          a.textContent = c.name;
-          li.appendChild(a);
-          ul.appendChild(li);
-        }
-      })
-      .catch(function() {
-        ul.innerHTML = '<li>Error loading characters.</li>';
-      });
-  }
-  
-  
-  function loadPotions() {
-    var ul = document.getElementById('potion-list');
-    ul.innerHTML = '<li>Loading…</li>';
-    fetch(apiUrl('/potions?limit=200'))
-      .then(function(r) { return r.json(); })
-      .then(function(pots) {
-        ul.innerHTML = '';
-        for (var i = 0; i < pots.length; i++) {
-          var p = pots[i];
-          var li = document.createElement('li');
-          var a  = document.createElement('a');
-          a.href = '/potion?id=' + p.id;
-          a.textContent = p.name;
-          li.appendChild(a);
-          ul.appendChild(li);
-        }
-      })
-      .catch(function() {
-        ul.innerHTML = '<li>Error loading potions.</li>';
-      });
-  }
-  
-  
-  function loadSpells() {
-    var ul = document.getElementById('spell-list');
-    ul.innerHTML = '<li>Loading…</li>';
-    fetch(apiUrl('/spells?limit=200'))
-      .then(function(r) { return r.json(); })
-      .then(function(spells) {
-        ul.innerHTML = '';
-        for (var i = 0; i < spells.length; i++) {
-          var s = spells[i];
-          var li = document.createElement('li');
-          var a  = document.createElement('a');
-          a.href = '/spell?id=' + s.id;
-          a.textContent = s.name;
-          li.appendChild(a);
-          ul.appendChild(li);
-        }
-      })
-      .catch(function() {
-        ul.innerHTML = '<li>Error loading spells.</li>';
-      });
-  }
-  
-  // suggestion bar
-  function showSuggestions(query) {
-    var ul = document.getElementById('search-suggestions');
-    ul.innerHTML = '';          
-    if (query === '') {
-      ul.style.display = 'none';
+//gather all of the selected filters
+  applyButton.onclick = function() {
+    var t = typeSelect.value;
+    if (!t) {
+      alert("Please choose Characters, Potions or Spells first.");
       return;
     }
-    ul.style.display = 'block'; 
-  
-    // characters
-    fetch(apiUrl('/characters?name=' + encodeURIComponent(query) + '&limit=5'))
-      .then(function(r) { return r.json(); })
-      .then(function(chars) {
-        addSuggestions('character', chars);
-        // potions
-        return fetch(apiUrl('/potions?name=' + encodeURIComponent(query) + '&limit=5'));
-      })
-      .then(function(r) { return r.json(); })
-      .then(function(pots) {
-        addSuggestions('potion', pots);
-        //spells
-        return fetch(apiUrl('/spells?name=' + encodeURIComponent(query) + '&limit=5'));
-      })
-      .then(function(r) { return r.json(); })
-      .then(function(spells) {
-        addSuggestions('spell', spells);
+
+    //non-empty filters, build the API URL
+    var params = ["type=" + encodeURIComponent(t)];
+    var selects = filtersDiv.getElementsByTagName("select");
+    for (var i = 0; i < selects.length; i++) {
+      if (selects[i].value) {
+        params.push(selects[i].id + "=" + encodeURIComponent(selects[i].value));
+      }
+    }
+    var inputs = filtersDiv.getElementsByTagName("input");
+    for (var j = 0; j < inputs.length; j++) {
+      if (inputs[j].value) {
+        params.push(inputs[j].id + "=" + encodeURIComponent(inputs[j].value));
+      }
+    }
+
+    var apiPath = "/" + t + "?" + params.slice(1).join("&");  
+    var url = getAPIBaseURL() + apiPath;
+
+    fetch(url)
+      .then(function(r) {return r.json(); })
+      .then(function(items) {
+        // if nothing came back, show a message
+        if (!items.length) {
+          resultsDiv.innerHTML = "<p>No results found.</p>";
+          return;
+        }
+        const current = new URLSearchParams(window.location.search);
+        // else build links to each detail page
+        let html = "<ul>";
+        items.forEach(it => {
+          const page = t.slice(0, -1);        
+          html += `<li><a href="/${page}?id=${it.id}">${it.name}</a></li>`;
+        });
+        html += "</ul>";
+        resultsDiv.innerHTML = html;
       })
       .catch(function() {
-        ul.style.display = 'none'; 
+        resultsDiv.innerHTML = "<p>Error fetching data.</p>";
       });
+  };
+
+  var params = new URLSearchParams(window.location.search);
+  var initialType = params.get("type");
+  if (initialType) {
+    typeSelect.value = initialType;   
+    typeSelect.onchange();             
+    applyButton.onclick();  
   }
-  
-  function addSuggestions(type, items) {
-    var ul = document.getElementById('search-suggestions');
-    for (var i = 0; i < items.length; i++) {
-      var item = items[i];
-      var li = document.createElement('li');
-      var a = document.createElement('a');
-      a.href = '/' + type + '?id=' + item.id;
-      a.textContent = item.name + ' (' + type + ')';
-      li.appendChild(a);
-      ul.appendChild(li);
-    }
+}
+
+//helpers automatically build, label, and insert HTML 
+function createDropdown(parent, id, options) {
+  var label = document.createElement("label");
+  label.textContent = id.charAt(0).toUpperCase() + id.slice(1) + ": ";
+  var sel = document.createElement("select"); sel.id = id;
+  var empty = document.createElement("option");
+  empty.value = ""; empty.textContent = "--";
+  sel.appendChild(empty);
+  for (var i = 0; i < options.length; i++) {
+    var opt = document.createElement("option");
+    opt.value = options[i]; opt.textContent = options[i];
+    sel.appendChild(opt);
   }
-  
-  // side-menu open/close
-  function openMenu() {
-    document.getElementById('side-menu').classList.add('open');
-    document.getElementById('menu-overlay').classList.add('open');
-  }
-  function closeMenu() {
-    document.getElementById('side-menu').classList.remove('open');
-    document.getElementById('menu-overlay').classList.remove('open');
-  }
-  
+  label.appendChild(sel);
+  parent.appendChild(label);
+}
+
+function createTextInput(parent, id) {
+  var label = document.createElement("label");
+  label.textContent = id.charAt(0).toUpperCase() + id.slice(1) + ": ";
+  var inp = document.createElement("input");
+  inp.type = "text"; inp.id = id;
+  label.appendChild(inp);
+  parent.appendChild(label);
+}
+
+function getAPIBaseURL() {
+  return window.location.protocol + "//" +
+         window.location.hostname + ":" +
+         window.location.port + "/api";
+}
