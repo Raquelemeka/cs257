@@ -19,22 +19,27 @@ The application uses datasets from Kaggle, including:
 
 ## To run the Web App
 
-### 1. Navigate to the web app folder
+### 1. Download entire folder
+```bash
+git clone https://github.com/Raquelemeka/cs257.git
+```
+
+### 2. Navigate to the web app folder
 ```bash
 cd webapp
 ```
 
-### 2. Install  dependencies (You need these to run the webapp)
+### 3. Install  dependencies (You need these to run the webapp)
 ```bash
 pip3 install flask pandas
 ```
 
-### 3. Start the application
+### 4. Start the application
 ```bash
 python3 app.py
 ```
 
-### 4. Open/View in your browser
+### 5. Open/View in your browser
 ```bash
 Navigate to: http://localhost:5000
 ```
