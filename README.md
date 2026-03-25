@@ -21,16 +21,20 @@ The application uses datasets from Kaggle, including:
 
 ### 1. Navigate to the web app folder
 ```bash
-cd webapp```
+cd webapp
+```
 
 ### 2. Install  dependencies (You need these to run the webapp)
 ```bash
-pip3 install flask pandas```
+pip3 install flask pandas
+```
 
 ### 3. Start the application
 ```bash
-python3 app.py```
+python3 app.py
+```
 
 ### 4. Open/View in your browser
 ```bash
-Navigate to: http://localhost:5000```
+Navigate to: http://localhost:5000
+```
