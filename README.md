@@ -41,5 +41,5 @@ python3 app.py
 
 ### 5. Open/View in your browser
 ```bash
-Navigate to: http://localhost:5000
+http://localhost:5000
 ```
